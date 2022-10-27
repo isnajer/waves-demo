@@ -32,13 +32,11 @@ class Favorite(db.Model):
                         autoincrement=True,
                         primary_key=True)
     created_on = db.Column(db.DateTime)
-    
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-    brain_wave_id = db.Column(db.Integer, db.ForeignKey("brain_waves.brain_wave_id"))
+    # sound_id = db.Column(db.Integer, db.ForeignKey("sounds.sound_id"))
     
     user = db.relationship("User", back_populates="favorites")
-    brain_wave = db.relationship("Brain_Wave", back_populates='favorites')
-    
+    sound = db.relationship("Sound", back_populates="favorites")
     
     def __repr__(self):
         return f'<Favorite favorite_id={self.favorite_id} user_id={self.user_id}>'
@@ -54,14 +52,33 @@ class Brain_Wave(db.Model):
                                 primary_key=True)
     brain_wave_name = db.Column(db.String(50))
     description = db.Column(db.String(200))
-    # RANGE IN HZ? TRY MIN-MAX...
     focus_id = db.Column(db.Integer, db.ForeignKey("user_focus.focus_id"))
     
     focus = db.relationship("Focus", back_populates="brain_waves")
-    favorites = db.relationship("Favorite", back_populates='brain_wave')
-    
+    sounds = db.relationship("Sound", back_populates="brain_wave")
+
     def __repr__(self):
         return f'<Brain_Wave brain_wave_id={self.brain_wave_id} brain_wave_name={self.brain_wave_name}>' 
+
+
+class Sound(db.Model):
+    """Sounds for each Brain Wave State"""
+
+    __tablename__ = 'sounds'
+
+    sound_id = db.Column(db.Integer,
+                                autoincrement=True,
+                                primary_key=True)
+    sound_name = db.Column(db.String(50))
+    description = db.Column(db.String(200))
+    favorite_id = db.Column(db.Integer, db.ForeignKey("favorites.favorite_id"))
+    brain_wave_id = db.Column(db.Integer, db.ForeignKey("brain_waves.brain_wave_id"))
+
+    favorites = db.relationship("Favorite", back_populates="sound")
+    brain_wave = db.relationship("Brain_Wave", back_populates="sounds")
+    
+    def __repr__(self):
+        return f'<Sound sound_id={self.sound_id} sound_name={self.sound_name}>'
 
 
 class Focus(db.Model):
@@ -93,7 +110,6 @@ def connect_to_db(flask_app, db_uri="postgresql:///waves", echo=True):
     db.app = flask_app
     db.init_app(flask_app)
 
-    # print("Connected to the db!")
 
 
 if __name__ == "__main__":
@@ -105,3 +121,4 @@ if __name__ == "__main__":
 
     connect_to_db(app)
     print("Connected to the db!")
+    db.create_all()

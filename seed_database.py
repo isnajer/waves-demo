@@ -15,3 +15,5 @@ os.system('createdb waves')
 
 model.connect_to_db(server.app)
 model.db.create_all()
+
+#sounds info and brainwaves infor and focs info will be in seed_database - load in database

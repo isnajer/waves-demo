@@ -2,9 +2,20 @@
 {% block title %}Waves - Sound Therapy{% endblock %}
 
 {% block body %}
-  <h1>Welcome!</h1>
+
+  <h1>Waves - Discover The Power Of Sound Therapy</h1>
 
   <h2>Blah blah Blah</h2>
+
+  <h1>Sign Up</h1>
+  <form action="/dashboard" method="POST">
+    <p>
+      Email <input type="text" name="email">
+    </p>
+
+    <p>
+      Password <input type="password" name="password">
+    </p>
   <div class="homepage-background">
     <button
         class="btn btn-primary btn-xl homepage-signup-button"
@@ -13,8 +24,30 @@
     >
         Sign Up
     </button>
-</div>
-  <ul>
-    <li><a href="/brain_waves">View all brain_waves</a></li>
-  </ul>
-  {% endblock %}
+  </div>
+  </form>
+  
+  <br>
+  <br>
+  <br>
+
+  <h1>Log In</h1>
+  <form action="/login" method="POST">
+    <p>
+      Email <input type="text" name="email">
+    </p>
+
+    <p>
+      Password <input type="password" name="password">
+    </p>
+  <div class="homepage-background">
+    <button
+        class="btn btn-primary btn-xl homepage-login-button"
+        data-toggle="modal"
+        data-target="#login-modal"
+    >
+        Log In
+    </button>
+  </div>
+  </form>
+{% endblock %}
