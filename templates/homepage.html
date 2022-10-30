@@ -1,20 +1,17 @@
 {% extends 'base.html' %}
-{% block title %}Waves - Sound Therapy{% endblock %}
-
-{% block body %}
-
-  <h1>Waves - Discover The Power Of Sound Therapy</h1>
-
-  <h2>Blah blah Blah</h2>
-
-  <h1>Sign Up</h1>
-  <form action="/dashboard" method="POST">
+{% include 'nav_index.html' %}
+{% block content %}
+<div class="container">
+<br/>
+<br/>
+<form action="/users" method="POST">
+  <!-- form action and method need to match in app.route (server.py) -->
     <p>
-      Email <input type="text" name="email">
+      email <br><input type="text" name="email">
     </p>
 
     <p>
-      Password <input type="password" name="password">
+      password <br><input type="password" name="password">
     </p>
   <div class="homepage-background">
     <button
@@ -29,25 +26,24 @@
   
   <br>
   <br>
-  <br>
 
-  <h1>Log In</h1>
-  <form action="/login" method="POST">
+  <form action="/dashboard" method="POST">
+  <!-- form action and method need to match in app.route in (server.py) -->
     <p>
-      Email <input type="text" name="email">
+      email <br><input type="text" name="email">
     </p>
 
     <p>
-      Password <input type="password" name="password">
+      password <br><input type="password" name="password">
     </p>
   <div class="homepage-background">
     <button
         class="btn btn-primary btn-xl homepage-login-button"
         data-toggle="modal"
-        data-target="#login-modal"
-    >
+        data-target="#login-modal">
         Log In
     </button>
   </div>
   </form>
+  </div>
 {% endblock %}
