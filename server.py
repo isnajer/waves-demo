@@ -1,7 +1,7 @@
 """Backend Server for Waves app."""
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect)
+                   redirect, url_for)
 from model import connect_to_db, db
 import crud
 from jinja2 import StrictUndefined
@@ -25,6 +25,12 @@ def homepage():
     return render_template('homepage.html')
 
 
+@app.route("/signup")
+def signup():
+    
+    return render_template('signup.html')
+
+
 @app.route("/users", methods=["POST"])
 def register_user():
     """Create a new user"""
@@ -36,9 +42,10 @@ def register_user():
     match_obj = re.search(r"(\w+)\@(\w+\.com)", email)
     if match_obj is None:
         flash("Invalid email address")
-        return redirect('/')
+        return redirect('/signup')
     elif user: #if user exists 
         flash("User with this email already exists.")
+        return redirect('/login')
     else:
         user = crud.create_user(email, password)
         db.session.add(user)
@@ -47,26 +54,34 @@ def register_user():
     
     return redirect("/")
 
+
+
 ### ASK IF I STILL NEED CODE IN THIS:
-# @app.route("/dashboard")
-# def user_details():
-#     """Users dashboard."""
-#     # return "THIS IS THE DASHBOARD!"
-#     user_id = session.get("user_id")
+@app.route("/dashboard")
+def user_details():
+    """Users dashboard."""
+    # return "THIS IS THE DASHBOARD!"
+    user_id = session.get("user_id")
 
-#     # Is user logged in?
-#     if user_id:
-#         user = User.query.get(user_id)
-#         return render_template("dashboard.html", user=user)
+    # Is user logged in?
+    if user_id:
+        user = User.query.get(user_id)
+        return render_template("dashboard.html", user=user)
 
-#     # If not, redirect to homepage.
-#     else:
-#         flash("You are not logged in.")
-#         return redirect('/')
+    # If not, redirect to homepage.
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
 
 
-@app.route("/dashboard", methods=["POST"])
+@app.route("/login")
 def login():
+    
+    return render_template('login.html')
+
+
+@app.route("/login", methods=["POST"])
+def login_user():
     """Logs user in / Directs them to user details dashboard if login successful."""
 
     email = request.form.get("email") #from HTML
@@ -75,16 +90,114 @@ def login():
     user = crud.get_user_by_email(email) #<- invoking function from crud.py
     if not user:
         flash("User email does not exist.")
-        return redirect("/")
+        return redirect("/login")
+        # Add hyperlink to redirect to signup
     elif user.password != password:
         flash("Password is incorrect!")
-        return redirect("/")
+        return redirect("/login")
     else:
-        session['user_email'] = user.email #getting email from object / but has same value as email line 48 (matching)
+        session['user_id'] = user.user_id #getting email from object / but has same value as email line 48 (matching)
         # ^ dictionary of user_email: email (as value)
         return render_template("/dashboard.html")
     #if user does not exist then flash message error
     #else user exists check if password is correct
+
+
+@app.route("/delta_waves")
+def delta_waves():
+
+    user_id = session.get("user_id")
+
+    # Is user logged in?
+    if user_id:
+        user = User.query.get(user_id)
+        return render_template("delta_waves.html", user=user)
+
+    # If not, redirect to homepage.
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
+
+
+@app.route("/theta_waves")
+def theta_waves():
+
+    user_id = session.get("user_id")
+
+    # Is user logged in?
+    if user_id:
+        user = User.query.get(user_id)
+        return render_template("theta_waves.html", user=user)
+
+    # If not, redirect to homepage.
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
+
+
+@app.route("/alpha_waves")
+def alpha_waves():
+
+    user_id = session.get("user_id")
+
+    # Is user logged in?
+    if user_id:
+        user = User.query.get(user_id)
+        return render_template("alpha_waves.html", user=user)
+
+    # If not, redirect to homepage.
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
+
+
+@app.route("/beta_waves")
+def beta_waves():
+
+    user_id = session.get("user_id")
+
+    # Is user logged in?
+    if user_id:
+        user = User.query.get(user_id)
+        return render_template("beta_waves.html", user=user)
+
+    # If not, redirect to homepage.
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
+
+
+@app.route("/gamma_waves")
+def gamma_waves():
+
+    user_id = session.get("user_id")
+
+    # Is user logged in?
+    if user_id:
+        user = User.query.get(user_id)
+        return render_template("gamma_waves.html", user=user)
+
+    # If not, redirect to homepage.
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
+    
+
+@app.route("/about")
+def about():
+    
+    return render_template('about.html')
+
+
+@app.route("/logout")
+def logout():
+
+    return render_template('homepage.html')
+
+
+
+
+
         
 
 
