@@ -104,15 +104,20 @@ def user_dashboard():
 
 # TO KEEP RECORD OF USER ACTIVITY:
 # before rendering template (while user logged in) save record w/ user_id and brainwave_id:
-@app.route("/delta_waves")
+@app.route("/delta_waves", methods=["GET"])
 def delta_waves():
 
     user_id = session.get("user_id")
+    # user_records_id = session.get("user_records_id")
+    created_on = session.get("created_on")
 
     # Is user logged in?
     if user_id:
         user = User.query.get(user_id)
-        return render_template("delta_waves.html", user=user)
+        record = crud.create_user_record(user_id, created_on)
+        db.session.add(record)
+        db.session.commit()
+        return render_template("delta_waves.html", user=user, record=record)
 
     # If not, redirect to homepage.
     else:

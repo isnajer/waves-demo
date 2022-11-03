@@ -38,11 +38,13 @@ def get_user_by_email(email):
 
 
 # Functions for FAVORITE class:
-def create_user_record(user_records_id):
+def create_user_record(user_records_id, user_id, created_on):
     """Create and return a new favorite"""
 
     record = User_Records(
-        user_records_id=user_records_id)
+        user_records_id=user_records_id,
+        user_id=user_id,
+        created_on=created_on)
 
     return record
 

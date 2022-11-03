@@ -40,7 +40,7 @@ class User_Records(db.Model):
     brain_wave = db.relationship("Brain_Wave", back_populates="records")
     
     def __repr__(self):
-        return f'<Record user_records_id={self.user_records_id} user_id={self.user_id}>'
+        return f'<Record user_records_id={self.user_records_id} user_id={self.user_id} created_on={self.created_on}>'
 
 
 class Brain_Wave(db.Model):
