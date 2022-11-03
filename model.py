@@ -17,29 +17,30 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-    favorites = db.relationship("Favorite", back_populates="user")
+    records = db.relationship("User_Records", back_populates="user")
 
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
 
 
-class Favorite(db.Model):
-    """User favorites."""
+class User_Records(db.Model):
+    """User Records."""
 
-    __tablename__ = 'favorites'
+    __tablename__ = 'records'
 
-    favorite_id = db.Column(db.Integer,
+    user_records_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
     created_on = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
     # sound_id = db.Column(db.Integer, db.ForeignKey("sounds.sound_id"))
     
-    user = db.relationship("User", back_populates="favorites")
-    sound = db.relationship("Sound", back_populates="favorites")
+    user = db.relationship("User", back_populates="records")
+    brain_wave = db.relationship("Brain_Wave", back_populates="records")
     
     def __repr__(self):
-        return f'<Favorite favorite_id={self.favorite_id} user_id={self.user_id}>'
+        return f'<Record user_records_id={self.user_records_id} user_id={self.user_id}>'
 
 
 class Brain_Wave(db.Model):
@@ -53,32 +54,13 @@ class Brain_Wave(db.Model):
     brain_wave_name = db.Column(db.String(50))
     description = db.Column(db.String(200))
     focus_id = db.Column(db.Integer, db.ForeignKey("user_focus.focus_id"))
+    user_records_id = db.Column(db.Integer, db.ForeignKey("records.user_records_id"))
     
     focus = db.relationship("Focus", back_populates="brain_waves")
-    sounds = db.relationship("Sound", back_populates="brain_wave")
+    records = db.relationship("User_Records", back_populates="brain_wave")
 
     def __repr__(self):
         return f'<Brain_Wave brain_wave_id={self.brain_wave_id} brain_wave_name={self.brain_wave_name}>' 
-
-
-class Sound(db.Model):
-    """Sounds for each Brain Wave State"""
-
-    __tablename__ = 'sounds'
-
-    sound_id = db.Column(db.Integer,
-                                autoincrement=True,
-                                primary_key=True)
-    sound_name = db.Column(db.String(50))
-    description = db.Column(db.String(200))
-    favorite_id = db.Column(db.Integer, db.ForeignKey("favorites.favorite_id"))
-    brain_wave_id = db.Column(db.Integer, db.ForeignKey("brain_waves.brain_wave_id"))
-
-    favorites = db.relationship("Favorite", back_populates="sound")
-    brain_wave = db.relationship("Brain_Wave", back_populates="sounds")
-    
-    def __repr__(self):
-        return f'<Sound sound_id={self.sound_id} sound_name={self.sound_name}>'
 
 
 class Focus(db.Model):

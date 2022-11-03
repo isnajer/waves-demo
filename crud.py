@@ -1,6 +1,6 @@
 """CRUD functions."""
 
-from model import db, User, Favorite, Brain_Wave, Focus, Sound, connect_to_db
+from model import db, User, User_Records, Brain_Wave, Focus, connect_to_db
 
 
 # Functions for USER class:
@@ -38,19 +38,19 @@ def get_user_by_email(email):
 
 
 # Functions for FAVORITE class:
-def create_favorite(favorite_id):
+def create_user_record(user_records_id):
     """Create and return a new favorite"""
 
-    favorite = Favorite(
-        favorite_id=favorite_id)
+    record = User_Records(
+        user_records_id=user_records_id)
 
-    return favorite
+    return record
 
 
-def get_favorites():
+def get_user_record():
     """Return all favorites."""
 
-    return Favorite.query.get()
+    return User_Records.query.get()
 
 
 # Functions for BRAIN WAVE class:
@@ -115,37 +115,6 @@ def get_focus(focus_name):
     """Return all focuses by name."""
 
     return Focus.query.get(focus_name)
-
-
-# Functions for SOUND class:
-def create_sound(sound_id, sound_name, description):
-    """Create and return a new sound"""
-
-    sound = Sound(
-        sound_id=sound_id,
-        sound_name=sound_name,
-        description=description)
-
-    return sound
-     
-
-def get_sounds():
-    """Return all sounds."""
-
-    return Sound.query.get()
-
-
-def get_sound_id(sound_id):
-    """Return all sounds by id."""
-
-    return Sound.query.get(sound_id)
-
-
-def get_sound_name(sound_name):
-    """Return all sounds by name."""
-
-    return Sound.query.get(sound_name)
-
 
 
 

@@ -4,6 +4,7 @@ from flask import (Flask, render_template, request, flash, session,
                    redirect, url_for)
 from model import connect_to_db, db
 import crud
+from datetime import datetime, timedelta
 from jinja2 import StrictUndefined
 from model import connect_to_db, db, User
 from sqlalchemy.exc import IntegrityError
@@ -183,6 +184,12 @@ def gamma_waves():
         return redirect('/login')
     
 
+@app.route("/chartjs")
+def show_chartjs():
+
+    return render_template('chartjs.html')
+
+
 @app.route("/about")
 def about():
     
@@ -197,8 +204,6 @@ def logout():
 
 
 
-
-        
 
 
 
