@@ -56,25 +56,6 @@ def register_user():
     return redirect("/")
 
 
-
-### ASK IF I STILL NEED CODE IN THIS:
-@app.route("/dashboard")
-def user_details():
-    """Users dashboard."""
-    # return "THIS IS THE DASHBOARD!"
-    user_id = session.get("user_id")
-
-    # Is user logged in?
-    if user_id:
-        user = User.query.get(user_id)
-        return render_template("dashboard.html", user=user)
-
-    # If not, redirect to homepage.
-    else:
-        flash("You are not logged in.")
-        return redirect('/login')
-
-
 @app.route("/login")
 def login():
     
@@ -83,7 +64,7 @@ def login():
 
 @app.route("/login", methods=["POST"])
 def login_user():
-    """Logs user in / Directs them to user details dashboard if login successful."""
+    """Logs user in / Directs them to user dashboard if login successful."""
 
     email = request.form.get("email") #from HTML
     password = request.form.get("password")
@@ -104,6 +85,25 @@ def login_user():
     #else user exists check if password is correct
 
 
+@app.route("/dashboard")
+def user_dashboard():
+    """User dashboard."""
+
+    user_id = session.get("user_id")
+
+    # Is user logged in:
+    if user_id:
+        user = User.query.get(user_id)
+        return render_template("dashboard.html", user=user)
+
+    # If not logged in, redirect to homepage:
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
+
+
+# TO KEEP RECORD OF USER ACTIVITY:
+# before rendering template (while user logged in) save record w/ user_id and brainwave_id:
 @app.route("/delta_waves")
 def delta_waves():
 
@@ -200,9 +200,6 @@ def about():
 def logout():
 
     return render_template('homepage.html')
-
-
-
 
 
 

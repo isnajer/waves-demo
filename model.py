@@ -70,7 +70,7 @@ class Focus(db.Model):
     __tablename__ = 'user_focus'
 
     focus_id = db.Column(db.Integer,
-                        autoincrement=True,
+                        autoincrement=False,
                         primary_key=True)
     focus_name = db.Column(db.String(50))
 

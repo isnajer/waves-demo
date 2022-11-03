@@ -50,17 +50,24 @@ def create_user_record(user_records_id):
 def get_user_record():
     """Return all favorites."""
 
-    return User_Records.query.get()
+    return User_Records.query.all()
+
+
+def get_user_record_id(user_record_id):
+    """Return all Brin Waves by id."""
+
+    return User_Records.query.get(user_record_id)
 
 
 # Functions for BRAIN WAVE class:
-def create_brain_wave(brain_wave_id, brain_wave_name, description):
+def create_brain_wave(brain_wave_id, brain_wave_name, description, playlist):
     """Create and return a new frequency."""
 
     brain_wave = Brain_Wave(
         brain_wave_id=brain_wave_id, 
         brain_wave_name=brain_wave_name,
-        description=description)
+        description=description,
+        playlist=playlist)
 
     return brain_wave
 
@@ -111,7 +118,7 @@ def get_focus_id(focus_id):
     return Focus.query.get(focus_id)
 
 
-def get_focus(focus_name):
+def get_focus_name(focus_name):
     """Return all focuses by name."""
 
     return Focus.query.get(focus_name)
