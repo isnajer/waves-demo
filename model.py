@@ -49,10 +49,11 @@ class Brain_Wave(db.Model):
     __tablename__ = 'brain_waves'
 
     brain_wave_id = db.Column(db.Integer,
-                                autoincrement=True,
+                                autoincrement=False,
                                 primary_key=True)
     brain_wave_name = db.Column(db.String(50))
     description = db.Column(db.String(200))
+    playlist = db.Column(db.String)
     focus_id = db.Column(db.Integer, db.ForeignKey("user_focus.focus_id"))
     user_records_id = db.Column(db.Integer, db.ForeignKey("records.user_records_id"))
     

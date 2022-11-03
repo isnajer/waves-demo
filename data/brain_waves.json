@@ -1,0 +1,35 @@
+[
+    {
+        "brain_wave_id": 1,
+        "brain_wave_name": "Delta",
+        "description": "(0.1-4hz) | Deep Sleep | Pain Relief | Anti-aging | Healing",
+        "playlist": "http://192.168.1.157:5000/delta_waves"
+    },
+    {
+        "brain_wave_id": 2,
+        "brain_wave_name": "Theta",
+        "description": "(4-8hz) | REM Sleep | Deep Relaxation | Meditation | Creativity",
+        "playlist": "http://192.168.1.157:5000/theta_waves"
+    },
+    {
+        "brain_wave_id": 3,
+        "brain_wave_name": "Alpha",
+        "description": "(8-13hz) | Relaxed Focus | Stress Reduction | Positive Thinking | Fast Learning",
+        "playlist": "http://192.168.1.157:5000/alpha_waves"
+    },
+    {
+        "brain_wave_id": 4,
+        "brain_wave_name": "Beta",
+        "description": "(13-30hz) | Focused Attention | Cognitive Thinking | Problem Solving | Active",
+        "playlist": "http://192.168.1.157:5000/beta_waves"
+    },
+    {
+        "brain_wave_id": 5,
+        "brain_wave_name": "Gamma",
+        "description": "(30-44hz) | Focused Attention | Cognitive Thinking | Problem Solving | Active",
+        "playlist": "http://192.168.1.157:5000/gamma_waves"
+    }
+
+
+
+]
