@@ -1,6 +1,6 @@
 """CRUD functions."""
 
-from model import db, User, User_Records, Brain_Wave, Focus, connect_to_db
+from model import db, User, User_Records, Brain_Wave, connect_to_db
 
 
 # Functions for USER class:
@@ -38,13 +38,13 @@ def get_user_by_email(email):
 
 
 # Functions for FAVORITE class:
-def create_user_record(user_records_id, user_id, created_on):
+def create_user_record(user_id, created_on, brain_wave_id):
     """Create and return a new favorite"""
 
     record = User_Records(
-        user_records_id=user_records_id,
         user_id=user_id,
-        created_on=created_on)
+        created_on=created_on,
+        brain_wave_id=brain_wave_id)
 
     return record
 
@@ -95,35 +95,6 @@ def get_brain_wave_name(brain_wave_name):
     # ^ AttributeError: type object 'Brain_Wave' has no attribute 'name'
     # Should it be `return Brain_Wave.query.get(brain_wave_name)`
 
-
-# Functions for FOCUS class:
-def create_focus(focus_id, focus_name):
-    """Create and return a new focus
-    User=user object, Focus=focus object"""
-
-    focus = Focus(
-        focus_id=focus_id,
-        focus_name=focus_name)
-
-    return focus
-    # ^ TypeError: 'user' is an invalid keyword argument for Focus 
-
-def get_focus():
-    """Return all focuses."""
-
-    return Focus.query.get()
-
-
-def get_focus_id(focus_id):
-    """Return all focuses by id."""
-
-    return Focus.query.get(focus_id)
-
-
-def get_focus_name(focus_name):
-    """Return all focuses by name."""
-
-    return Focus.query.get(focus_name)
 
 
 

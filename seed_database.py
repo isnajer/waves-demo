@@ -9,12 +9,12 @@ import crud
 import model
 import server
 
-os.system('dropdb waves')
-os.system('createdb waves')
+# os.system('dropdb waves')
+# os.system('createdb waves')
 
 
 model.connect_to_db(server.app)
-model.db.create_all()
+# model.db.create_all()
 
 # Load brain wave data from JSON file
 with open("data/brain_waves.json") as f:

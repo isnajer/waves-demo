@@ -33,14 +33,13 @@ class User_Records(db.Model):
                         primary_key=True)
     created_on = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    brain_wave_id = db.Column(db.Integer, db.ForeignKey("brain_waves.brain_wave_id"))
 
-    # sound_id = db.Column(db.Integer, db.ForeignKey("sounds.sound_id"))
-    
     user = db.relationship("User", back_populates="records")
     brain_wave = db.relationship("Brain_Wave", back_populates="records")
     
     def __repr__(self):
-        return f'<Record user_records_id={self.user_records_id} user_id={self.user_id} created_on={self.created_on}>'
+        return f'<Record user_records_id={self.user_records_id} created_on={self.created_on} user_id={self.user_id} brain_wave_id={self.brain_wave_id}>'
 
 
 class Brain_Wave(db.Model):
@@ -54,30 +53,12 @@ class Brain_Wave(db.Model):
     brain_wave_name = db.Column(db.String(50))
     description = db.Column(db.String(200))
     playlist = db.Column(db.String)
-    focus_id = db.Column(db.Integer, db.ForeignKey("user_focus.focus_id"))
-    user_records_id = db.Column(db.Integer, db.ForeignKey("records.user_records_id"))
     
-    focus = db.relationship("Focus", back_populates="brain_waves")
     records = db.relationship("User_Records", back_populates="brain_wave")
 
     def __repr__(self):
-        return f'<Brain_Wave brain_wave_id={self.brain_wave_id} brain_wave_name={self.brain_wave_name}>' 
+        return f'<Brain_Wave brain_wave_id={self.brain_wave_id} user_records_id={self.user_records_id}>' 
 
-
-class Focus(db.Model):
-    """User focus."""
-
-    __tablename__ = 'user_focus'
-
-    focus_id = db.Column(db.Integer,
-                        autoincrement=False,
-                        primary_key=True)
-    focus_name = db.Column(db.String(50))
-
-    brain_waves = db.relationship("Brain_Wave", back_populates="focus") 
-
-    def __repr__(self):
-        return f'<Focus focus_id={self.focus_id} focus_name={self.focus_name}>'
 
    
 

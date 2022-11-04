@@ -109,14 +109,15 @@ def delta_waves():
 
     user_id = session.get("user_id")
     # user_records_id = session.get("user_records_id")
-    created_on = session.get("created_on")
+    created_on = datetime.now()
 
     # Is user logged in?
     if user_id:
         user = User.query.get(user_id)
-        record = crud.create_user_record(user_id, created_on)
+        record = crud.create_user_record(user_id, created_on, 1)
         db.session.add(record)
         db.session.commit()
+        print(record)
         return render_template("delta_waves.html", user=user, record=record)
 
     # If not, redirect to homepage.
