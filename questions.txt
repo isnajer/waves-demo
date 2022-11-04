@@ -1,0 +1,4 @@
+QUESTIONS TO ASK:
+
+1) How can I pull up what brain_waves users has records of? 
+   Something like `Users.query.get(brain_wave_id)` ?

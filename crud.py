@@ -37,7 +37,7 @@ def get_user_by_email(email):
     # ^ passed test
 
 
-# Functions for FAVORITE class:
+# Functions for USER RECORDS class:
 def create_user_record(user_id, created_on, brain_wave_id):
     """Create and return a new favorite"""
 

@@ -108,7 +108,6 @@ def user_dashboard():
 def delta_waves():
 
     user_id = session.get("user_id")
-    # user_records_id = session.get("user_records_id")
     created_on = datetime.now()
 
     # Is user logged in?
@@ -117,7 +116,8 @@ def delta_waves():
         record = crud.create_user_record(user_id, created_on, 1)
         db.session.add(record)
         db.session.commit()
-        print(record)
+        # Test Record Commit w/ Print:
+        # print(record)
         return render_template("delta_waves.html", user=user, record=record)
 
     # If not, redirect to homepage.
@@ -126,15 +126,21 @@ def delta_waves():
         return redirect('/login')
 
 
-@app.route("/theta_waves")
+@app.route("/theta_waves", methods=["GET"])
 def theta_waves():
 
     user_id = session.get("user_id")
+    created_on = datetime.now()
 
     # Is user logged in?
     if user_id:
         user = User.query.get(user_id)
-        return render_template("theta_waves.html", user=user)
+        record = crud.create_user_record(user_id, created_on, 2)
+        db.session.add(record)
+        db.session.commit()
+        # Test Record Commit w/ Print:
+        # print(record)
+        return render_template("theta_waves.html", user=user, record=record)
 
     # If not, redirect to homepage.
     else:
@@ -142,14 +148,20 @@ def theta_waves():
         return redirect('/login')
 
 
-@app.route("/alpha_waves")
+@app.route("/alpha_waves", methods=["GET"])
 def alpha_waves():
 
     user_id = session.get("user_id")
+    created_on = datetime.now()
 
     # Is user logged in?
     if user_id:
         user = User.query.get(user_id)
+        record = crud.create_user_record(user_id, created_on, 3)
+        db.session.add(record)
+        db.session.commit()
+        # Test Record Commit w/ Print:
+        # print(record)
         return render_template("alpha_waves.html", user=user)
 
     # If not, redirect to homepage.
@@ -158,14 +170,20 @@ def alpha_waves():
         return redirect('/login')
 
 
-@app.route("/beta_waves")
+@app.route("/beta_waves", methods=["GET"])
 def beta_waves():
 
     user_id = session.get("user_id")
+    created_on = datetime.now()
 
     # Is user logged in?
     if user_id:
         user = User.query.get(user_id)
+        record = crud.create_user_record(user_id, created_on, 4)
+        db.session.add(record)
+        db.session.commit()
+        # Test Record Commit w/ Print:
+        # print(record)
         return render_template("beta_waves.html", user=user)
 
     # If not, redirect to homepage.
@@ -174,14 +192,20 @@ def beta_waves():
         return redirect('/login')
 
 
-@app.route("/gamma_waves")
+@app.route("/gamma_waves", methods=["GET"])
 def gamma_waves():
 
     user_id = session.get("user_id")
+    created_on = datetime.now()
 
     # Is user logged in?
     if user_id:
         user = User.query.get(user_id)
+        record = crud.create_user_record(user_id, created_on, 5)
+        db.session.add(record)
+        db.session.commit()
+        # Test Record Commit w/ Print:
+        # print(record)
         return render_template("gamma_waves.html", user=user)
 
     # If not, redirect to homepage.

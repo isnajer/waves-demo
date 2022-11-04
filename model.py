@@ -69,7 +69,7 @@ class Brain_Wave(db.Model):
 
 def connect_to_db(flask_app, db_uri="postgresql:///waves", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
-    flask_app.config["SQLALCHEMY_ECHO"] = False
+    flask_app.config["SQLALCHEMY_ECHO"] = True
     flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = flask_app
     db.init_app(flask_app)
