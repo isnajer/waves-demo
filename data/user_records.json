@@ -1,80 +1,50 @@
 [
     {
-        "user_records_id":1,
-        "created_on":"2022-11-03T18:03:34.184769",
-        "user_id":1,
-        "brain_wave_id":1
+        "user_records_id": 7,
+        "created_on": "2022-11-06T16:10:27.028283",
+        "user_id": 3,
+        "brain_wave_id": 1
     },
     {
-        "user_records_id":2,
-        "created_on":"2022-11-03T18:04:01.18177",
-        "user_id":2,
-        "brain_wave_id":1
+        "user_records_id": 8,
+        "created_on": "2022-11-06T16:27:10.418169",
+        "user_id": 3,
+        "brain_wave_id": 1
     },
     {
-        "user_records_id":3,
-        "created_on":"2022-11-03T18:10:44.731937",
-        "user_id":2,
-        "brain_wave_id":1
+        "user_records_id": 9,
+        "created_on": "2022-11-06T16:27:13.455635",
+        "user_id": 3,
+        "brain_wave_id": 1
     },
     {
-        "user_records_id":4,
-        "created_on":"2022-11-03T20:35:59.80531",
-        "user_id":1,
-        "brain_wave_id":1
+        "user_records_id": 10,
+        "created_on": "2022-11-06T16:27:15.049489",
+        "user_id": 3,
+        "brain_wave_id": 1
     },
     {
-        "user_records_id":5,
-        "created_on":"2022-11-03T20:36:04.900236",
-        "user_id":1,
-        "brain_wave_id":2
+        "user_records_id": 11,
+        "created_on": "2022-11-06T16:33:57.972",
+        "user_id": 3,
+        "brain_wave_id": 5
     },
     {
-        "user_records_id":6,
-        "created_on":"2022-11-03T20:36:09.993351",
-        "user_id":1,
-        "brain_wave_id":3
+        "user_records_id": 12,
+        "created_on": "2022-11-06T16:34:51.994612",
+        "user_id": 3,
+        "brain_wave_id": 5
     },
     {
-        "user_records_id":7,
-        "created_on":"2022-11-03T20:36:14.418822",
-        "user_id":1,
-        "brain_wave_id":4
+        "user_records_id": 13,
+        "created_on": "2022-11-06T16:35:18.601884",
+        "user_id": 3,
+        "brain_wave_id": 5
     },
     {
-        "user_records_id":8,
-        "created_on":"2022-11-03T20:36:20.594093",
-        "user_id":1,
-        "brain_wave_id":5
-    },
-    {
-        "user_records_id":9,
-        "created_on":"2022-11-03T20:36:44.399672",
-        "user_id":2,
-        "brain_wave_id":1
-    },
-    {
-        "user_records_id":10,
-        "created_on":"2022-11-03T20:36:47.407885",
-        "user_id":2,
-        "brain_wave_id":2
-    },
-    {
-        "user_records_id":11,
-        "created_on":"2022-11-03T20:36:51.153242",
-        "user_id":2,
-        "brain_wave_id":3
-    },
-    {
-        "user_records_id":12,
-        "created_on":"2022-11-03T20:36:57.950871",
-        "user_id":2,
-        "brain_wave_id":4
-    },
-    {
-        "user_records_id":13,
-        "created_on":"2022-11-03T20:37:02.174621",
-        "user_id":2,
-        "brain_wave_id":5
-    } 
+        "user_records_id": 14,
+        "created_on": "2022-11-06T16:35:45.148661",
+        "user_id": 3,
+        "brain_wave_id": 5
+    }
 ]

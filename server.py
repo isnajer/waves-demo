@@ -6,7 +6,7 @@ from model import connect_to_db, db
 import crud
 from datetime import datetime, timedelta
 from jinja2 import StrictUndefined
-from model import connect_to_db, db, User
+from model import connect_to_db, db, User, User_Records
 from sqlalchemy.exc import IntegrityError
 import bcrypt
 import os
@@ -106,118 +106,72 @@ def user_dashboard():
 # before rendering template (while user logged in) save record w/ user_id and brainwave_id:
 @app.route("/delta_waves", methods=["GET"])
 def delta_waves():
-
-    user_id = session.get("user_id")
-    created_on = datetime.now()
-
-    # Is user logged in?
-    if user_id:
-        user = User.query.get(user_id)
-        record = crud.create_user_record(user_id, created_on, 1)
-        db.session.add(record)
-        db.session.commit()
-        # Test Record Commit w/ Print:
-        # print(record)
-        return render_template("delta_waves.html", user=user, record=record)
-
-    # If not, redirect to homepage.
-    else:
-        flash("You are not logged in.")
-        return redirect('/login')
-
+    add_user_record(1)
+    return render_template("delta_waves.html")
 
 @app.route("/theta_waves", methods=["GET"])
 def theta_waves():
-
-    user_id = session.get("user_id")
-    created_on = datetime.now()
-
-    # Is user logged in?
-    if user_id:
-        user = User.query.get(user_id)
-        record = crud.create_user_record(user_id, created_on, 2)
-        db.session.add(record)
-        db.session.commit()
-        # Test Record Commit w/ Print:
-        # print(record)
-        return render_template("theta_waves.html", user=user, record=record)
-
-    # If not, redirect to homepage.
-    else:
-        flash("You are not logged in.")
-        return redirect('/login')
-
+    add_user_record(2)
+    return render_template("theta_waves.html")
 
 @app.route("/alpha_waves", methods=["GET"])
 def alpha_waves():
-
-    user_id = session.get("user_id")
-    created_on = datetime.now()
-
-    # Is user logged in?
-    if user_id:
-        user = User.query.get(user_id)
-        record = crud.create_user_record(user_id, created_on, 3)
-        db.session.add(record)
-        db.session.commit()
-        # Test Record Commit w/ Print:
-        # print(record)
-        return render_template("alpha_waves.html", user=user)
-
-    # If not, redirect to homepage.
-    else:
-        flash("You are not logged in.")
-        return redirect('/login')
-
+    add_user_record(3)
+    return render_template("alpha_waves.html")
 
 @app.route("/beta_waves", methods=["GET"])
 def beta_waves():
-
-    user_id = session.get("user_id")
-    created_on = datetime.now()
-
-    # Is user logged in?
-    if user_id:
-        user = User.query.get(user_id)
-        record = crud.create_user_record(user_id, created_on, 4)
-        db.session.add(record)
-        db.session.commit()
-        # Test Record Commit w/ Print:
-        # print(record)
-        return render_template("beta_waves.html", user=user)
-
-    # If not, redirect to homepage.
-    else:
-        flash("You are not logged in.")
-        return redirect('/login')
-
+    add_user_record(4)
+    return render_template("beta_waves.html")
 
 @app.route("/gamma_waves", methods=["GET"])
 def gamma_waves():
-
-    user_id = session.get("user_id")
-    created_on = datetime.now()
-
-    # Is user logged in?
-    if user_id:
-        user = User.query.get(user_id)
-        record = crud.create_user_record(user_id, created_on, 5)
-        db.session.add(record)
-        db.session.commit()
-        # Test Record Commit w/ Print:
-        # print(record)
-        return render_template("gamma_waves.html", user=user)
-
-    # If not, redirect to homepage.
-    else:
-        flash("You are not logged in.")
-        return redirect('/login')
+    add_user_record(5)
+    return render_template("gamma_waves.html")
     
 
 @app.route("/chartjs")
 def show_chartjs():
+    
+    # TODO: create a function that will pull data from DB and create an images
+    # then use this image in your chartjs.html
+    """
+    def create_chart():
+        1) pull data from db for current user
+        2) use  python librarry that creates show_charts based on pulled data from db
+        3) save this image locally
+        4) return the name of the image or image location
 
-    return render_template('chartjs.html')
+    chart = create_chart()
+    return render_template('chartjs.html', chart)
+    """
+        
+    user_id = session.get("user_id")
+
+    """
+    SELECT brain_wave_id, COUNT(*) FROM records WHERE user_id=3 GROUP BY brain_wave_id;
+     brain_wave_id | count 
+---------------+-------
+             1 |     4
+             5 |     4
+    """
+    brain_wave_count = {
+        1: 0, 2: 0, 3:0, 4:0, 5:0
+    }
+    user_id = session.get("user_id")
+
+    for bw_id, _ in brain_wave_count.items():
+        records_count = User_Records.query.filter_by(brain_wave_id=bw_id, user_id=user_id).count()
+        brain_wave_count[bw_id] = records_count
+    print(f"=== {brain_wave_count}")
+
+    # used brain_wave_count in the chart
+
+    return render_template(
+        'chartjs.html',
+        brain_wave_count=brain_wave_count,
+        user_id=user_id,
+        delta=brain_wave_count[1],)
 
 
 @app.route("/about")
@@ -232,6 +186,16 @@ def logout():
     return render_template('homepage.html')
 
 
+def add_user_record(brain_wave_id):
+    user_id = session.get("user_id")
+    created_on = datetime.now()
+
+    # Is user logged in?
+    if user_id:
+        user = User.query.get(user_id)
+        record = crud.create_user_record(user_id, created_on, brain_wave_id)
+        db.session.add(record)
+        db.session.commit()
 
 
 if __name__ == "__main__":

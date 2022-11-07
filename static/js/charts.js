@@ -1,13 +1,16 @@
 'use strict';
 
+var brain_wave_count = document.getElementById("chart").getAttribute("brain_wave_count");
+var delta = document.getElementById("chart").getAttribute("delta");
+
 new Chart(document.querySelector('#bar-chart'), {
     type: 'bar',
     data: {
       labels: ['Delta', 'Theta', 'Alpha', 'Beta', 'Gamma'],
       datasets: [{
-          label: 'Visits',
-          data: [
-            // Visits Stored In DB
+          label: 'Today',
+          data: [ 
+            brain_wave_count[1], brain_wave_count[2], brain_wave_count[3], brain_wave_count[4], brain_wave_count[5]
           ],
         }],
     },
@@ -33,11 +36,43 @@ new Chart(document.querySelector('#bar-chart'), {
           yAxes: [
             {
               ticks: {
-                min: 0,
-                max: 40,
+                suggestedMin: 0,
+                suggestedMax: 40,
               },
             },
           ],
         },
       },
   });
+
+// fetch('/user_records.json')
+//   .then((response) => response.json())
+//   .then((responseJson) => {
+//     const data = responseJson.data.map((dailyTotal) => ({
+//       x: dailyTotal.date,
+//       y: dailyTotal.melons_sold,
+//     }));
+
+//     new Chart(document.querySelector('#line-time'), {
+//       type: 'line',
+//       data: {
+//         datasets: [
+//           {
+//             label: 'All Melons',
+//             data, // equivalent to data: data
+//           },
+//         ],
+//       },
+//       options: {
+//         scales: {
+//           x: {
+//             type: 'time',
+//             time: {
+//               tooltipFormat: 'LLLL dd', // Luxon format string
+//               unit: 'day',
+//             },
+//           },
+//         },
+//       },
+//     });
+//   });
