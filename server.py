@@ -130,7 +130,7 @@ def gamma_waves():
     return render_template("gamma_waves.html")
     
 
-@app.route("/chartjs")
+@app.route("/charts")
 def show_chartjs():
     
     # TODO: create a function that will pull data from DB and create an images
@@ -160,24 +160,26 @@ def show_chartjs():
     }
     user_id = session.get("user_id")
 
-    for bw_id, _ in brain_wave_count.items():
-        records_count = User_Records.query.filter_by(brain_wave_id=bw_id, user_id=user_id).count()
-        brain_wave_count[bw_id] = records_count
+    for brain_wave_id, _ in brain_wave_count.items():
+        records_count = User_Records.query.filter_by(brain_wave_id=brain_wave_id, user_id=user_id).count()
+        brain_wave_count[brain_wave_id] = records_count
     print(f"=== {brain_wave_count}")
 
     # used brain_wave_count in the chart
-
-    return render_template(
-        'chartjs.html',
-        brain_wave_count=brain_wave_count,
-        user_id=user_id,
-        delta=brain_wave_count[1],)
+    
+    return brain_wave_count
 
 
 @app.route("/about")
 def about():
     
     return render_template('about.html')
+
+
+@app.route("/chartjs")
+def chart():
+    
+    return render_template('chartjs.html')
 
 
 @app.route("/logout")

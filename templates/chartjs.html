@@ -26,11 +26,8 @@
 </div>
 {% endblock %}
 
-<h3>User ID: {{ user_id }}</h3>
-<h3>brain_wave_count: {{ brain_wave_count }}</h3>
-<h3>delta: {{ delta }}</h3>
 
 {% block js %}
-<script id="chart" brain_wave_count="{{brain_wave_count}}" delta="delta" src="/static/js/charts.js"></script>
+<script src="/static/js/charts.js"></script>
 {% endblock %}
 {% endblock %}
