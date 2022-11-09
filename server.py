@@ -1,7 +1,7 @@
 """Backend Server for Waves app."""
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect, url_for)
+                   redirect, url_for,)
 from model import connect_to_db, db
 import crud
 from datetime import datetime, timedelta
@@ -36,9 +36,11 @@ def signup():
 def register_user():
     """Create a new user"""
 
+    fname = request.form.get("fname")
+    lname = request.form.get("lname")
     email = request.form.get("email")
-    
     password = request.form.get("password")
+
     user = crud.get_user_by_email(email)
     match_obj = re.search(r"(\w+)\@(\w+\.com)", email)
     if match_obj is None:
@@ -48,7 +50,7 @@ def register_user():
         flash("User with this email already exists.")
         return redirect('/login')
     else:
-        user = crud.create_user(email, password)
+        user = crud.create_user(fname, lname, email, password)
         db.session.add(user)
         db.session.commit()
         flash("Account created! Please log in.")
@@ -62,7 +64,7 @@ def login():
     return render_template('login.html')
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["POST", "GET"])
 def login_user():
     """Logs user in / Directs them to user dashboard if login successful."""
 
@@ -78,7 +80,9 @@ def login_user():
         flash("Password is incorrect!")
         return redirect("/login")
     else:
-        session['user_id'] = user.user_id #getting email from object / but has same value as email line 48 (matching)
+        session['user_id'] = user.user_id
+        session['fname'] = user.fname
+        #getting email from object / but has same value as email line 48 (matching)
         # ^ dictionary of user_email: email (as value)
         return render_template("/dashboard.html")
     #if user does not exist then flash message error
@@ -90,11 +94,13 @@ def user_dashboard():
     """User dashboard."""
 
     user_id = session.get("user_id")
+    fname = session.get("fname")
+    # ^ to display user name on pages....and add it to render_temp below (fname=fname)
 
     # Is user logged in:
-    if user_id:
-        user = User.query.get(user_id)
-        return render_template("dashboard.html", user=user)
+    if user_id and fname:
+
+        return render_template("dashboard.html")
 
     # If not logged in, redirect to homepage:
     else:
@@ -164,8 +170,6 @@ def show_chartjs():
         records_count = User_Records.query.filter_by(brain_wave_id=brain_wave_id, user_id=user_id).count()
         brain_wave_count[brain_wave_id] = records_count
     print(f"=== {brain_wave_count}")
-
-    # used brain_wave_count in the chart
     
     return brain_wave_count
 
@@ -184,8 +188,9 @@ def chart():
 
 @app.route("/logout")
 def logout():
-
-    return render_template('homepage.html')
+    session['fname'] = None
+    session['user_id'] = None
+    return redirect('/')
 
 
 def add_user_record(brain_wave_id):

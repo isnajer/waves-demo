@@ -13,14 +13,15 @@ class User(db.Model):
     user_id = db.Column(db.Integer, 
                         autoincrement=True,
                         primary_key=True)
-    name = db.Column(db.String(50))
+    fname = db.Column(db.String(50))
+    lname = db.Column(db.String(50))
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
     records = db.relationship("User_Records", back_populates="user")
 
     def __repr__(self):
-        return f'<User user_id={self.user_id} email={self.email}>'
+        return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname} email={self.email}>'
 
 
 class User_Records(db.Model):

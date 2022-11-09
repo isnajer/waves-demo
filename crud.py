@@ -4,12 +4,12 @@ from model import db, User, User_Records, Brain_Wave, connect_to_db
 
 
 # Functions for USER class:
-def create_user(email, password):
+def create_user(fname, lname, email, password):
     """Create and return a new user.
     Email= string, Password= string"""
     
 
-    user = User(email=email, password=password)
+    user = User(fname=fname, lname=lname, email=email, password=password)
 
     return user
     # ^ passed test
@@ -20,6 +20,12 @@ def get_users():
 
     return User.query.all()
     # ^ passed test
+
+
+def get_user_by_name(fname, lname):
+    """Returns user by name"""
+
+    return User.query.filter(User.name == fname, lname).first()
 
 
 def get_user_by_id(user_id):
