@@ -1,0 +1,100 @@
+#=============== YELP EVENTS API ===============#
+# Define an event ID:
+event_id = 'live-music'
+
+# Define the API key::
+API_KEY = 'fXyaeMmVOoXwDawXFDUqTlE9N8rzF4ocxWBqiQGeXKXyAj7-TIQaWbcu_-r1gfFC54Vg744qnh9xjU03lSrxzassUeIzG5fqRxYdGA7kK1cAqUlmg5qRx9UHC_9qY3Yx'
+ENDPOINT = 'https://api.yelp.com/v3/events'
+HEADERS = {'Authorization': 'bearer %s' % API_KEY}
+
+# Define the parameters:
+# Event Lookup:
+PARAMETERS = {'location': 'Los Angeles',
+              'limit': 50}
+
+
+# Make a req. to the Yelp API - Store it in 'response' variable:
+response = requests.get(url = ENDPOINT, params = PARAMETERS, headers= HEADERS)
+ 
+# Convert the JSON string to a dictionary:
+event_data = response.json()
+
+for event in event_data['events']:
+    print(event.keys())
+    # print(event['is_free'])  # <-- or whatever attribute of the event you want...
+
+
+# Events Search - FULL LIST:
+# PARAMETERS = {'location': 'Los Angeles',
+#               'offset': 45,
+#               'limit': 50,
+#               'sort_by': 'desc',
+#               'sort_on': 'popularity',
+#               'start_date': 2321324,
+#               'end_date': 423423,
+#               'categories': 'music',
+#               'is_free': True,
+#               'latitude': 32.715,
+#               'longitude': -117.1610,
+#               'radius': 1000,
+#               'excluded_events':['oakland-saucy-oakland-restaurant-pop-up']}
+
+
+
+
+
+#=============== YELP BUSINESS API, ABOUT, LOGOUT ===============#
+# Define a business ID:
+business_id = ' '
+
+# Define the API key::
+API_KEY = 'fXyaeMmVOoXwDawXFDUqTlE9N8rzF4ocxWBqiQGeXKXyAj7-TIQaWbcu_-r1gfFC54Vg744qnh9xjU03lSrxzassUeIzG5fqRxYdGA7kK1cAqUlmg5qRx9UHC_9qY3Yx'
+ENDPOINT = 'https://api.yelp.com/v3/businesses/search'
+HEADERS = {'Authorization': 'bearer %s' % API_KEY}
+
+# Define the parameters:
+PARAMETERS = {'term': 'holistic',
+              'limit': 50,
+              'radius': 10000,
+              'offset': 50,
+              'location': 'Los Angeles'}
+
+# Make a req. to the Yelp API:
+response = requests.get(url = ENDPOINT,
+                        params = PARAMETERS,
+                        headers = HEADERS)
+ 
+ # Convert the JSON string to a dictionary:
+business_data = response.json()
+
+# print(business_data.keys())
+
+for biz in business_data['businesses']:
+    print(biz['name']) # <-- or whatever attribute of the business you want...
+
+# Print the response:
+# print(json.dumps(business_data, indent = 3))
+# OR:
+# Write a response file:
+# f = open('.\\apis\\yelp_results.txt', 'w')
+# f.write(json.dumps(business_data, indent = 3))
+# f.close()
+
+# Business Search - FULL LIST:
+# PARAMETERS = {'term': 'good food',
+#               'location': 'Los Angeles',
+#               'latitude': 32.715,
+#               'longitude': -117.161,
+#               'radius': 100000,
+#               'categories': 'bars,french',
+#               'locale': 'en_US',
+#               'limit': 50,
+#               'offset': 150,
+#               'sort_by': 'best_match',
+#               'price': '1',
+#               'open_now': True,
+#               'open_at': 1546215674,
+#               'attributes': 'hot_and_new'}
+
+
+

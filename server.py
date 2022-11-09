@@ -11,14 +11,17 @@ from sqlalchemy.exc import IntegrityError
 import bcrypt
 import os
 import re
+import requests
+import json 
 
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
-
 #API calls should be in this file through flask routes.
 
+
+#=============== IDX, SIGN UP, LOGIN ===============#
 @app.route('/')
 def homepage():
     """View homepage"""
@@ -89,6 +92,7 @@ def login_user():
     #else user exists check if password is correct
 
 
+#=============== DASHBOARD, BWAVES, CHARTJS ===============#
 @app.route("/dashboard")
 def user_dashboard():
     """User dashboard."""
@@ -174,22 +178,101 @@ def show_chartjs():
     return brain_wave_count
 
 
-@app.route("/about")
-def about():
-    
-    return render_template('about.html')
-
-
 @app.route("/chartjs")
 def chart():
     
     return render_template('chartjs.html')
 
 
+#=============== YELP BUSINESS API, ABOUT, LOGOUT ===============#
+# Define a business ID:
+business_id = ' '
+
+# Define the API key::
+API_KEY = 'fXyaeMmVOoXwDawXFDUqTlE9N8rzF4ocxWBqiQGeXKXyAj7-TIQaWbcu_-r1gfFC54Vg744qnh9xjU03lSrxzassUeIzG5fqRxYdGA7kK1cAqUlmg5qRx9UHC_9qY3Yx'
+ENDPOINT = 'https://api.yelp.com/v3/businesses/search'
+HEADERS = {'Authorization': 'bearer %s' % API_KEY}
+
+# Define the parameters:
+PARAMETERS = {'term': 'holistic',
+              'limit': 50,
+              'radius': 10000,
+              'offset': 50,
+              'location': 'Los Angeles'}
+
+# Make a req. to the Yelp API:
+response = requests.get(url = ENDPOINT,
+                        params = PARAMETERS,
+                        headers = HEADERS)
+ 
+ # Convert the JSON string to a dictionary:
+business_data = response.json()
+
+# print(business_data.keys())
+
+for biz in business_data['businesses']:
+    print(biz['name']) # <-- or whatever attribute of the business you want...
+
+# Print the response:
+# print(json.dumps(business_data, indent = 3))
+# OR:
+# Write a response file:
+# f = open('.\\apis\\yelp_results.txt', 'w')
+# f.write(json.dumps(business_data, indent = 3))
+# f.close()
+
+# Business Search - FULL LIST:
+# PARAMETERS = {'term': 'good food',
+#               'location': 'Los Angeles',
+#               'latitude': 32.715,
+#               'longitude': -117.161,
+#               'radius': 100000,
+#               'categories': 'bars,french',
+#               'locale': 'en_US',
+#               'limit': 50,
+#               'offset': 150,
+#               'sort_by': 'best_match',
+#               'price': '1',
+#               'open_now': True,
+#               'open_at': 1546215674,
+#               'attributes': 'hot_and_new'}
+
+
+@app.route("/search", methods=["GET"])
+def search():
+    """Yelp Search"""
+
+    zipcode = request.args.get("zipcode")
+    holistic = request.args.get("holisitc")
+    offset = int(request.args.get("offset", 0))
+
+    data = get_search_by_zip(zipcode, holistic, offset)
+    # business = data['businesses']
+
+    return render_template('search.html', data=data, offset=offset,
+                            zipcode=zipcode, holistic=holistic)
+
+
+# Helper function that queries Yelp API:
+def get_search_by_zip(zipcode, holistic, offset=0):
+    HEADERS = {'Authorization': 'bearer %s' % API_KEY}
+    payload = {"location": str(zipcode), "term": str(holistic), "limit": int(10), "offset": offset}
+    response = requests.get(ENDPOINT+"/search", headers=HEADERS, params = payload)
+
+    return response.json()
+
+
+@app.route("/about")
+def about():
+    
+    return render_template('about.html')
+
+
 @app.route("/logout")
 def logout():
-    session['fname'] = None
-    session['user_id'] = None
+    # session['fname'] = None
+    # session['user_id'] = None
+    session.clear()
     return redirect('/')
 
 

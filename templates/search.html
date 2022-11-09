@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% include 'nav.html' %}
+{% block content %}
+<div class="container-fluid" width="20%">
+<br/>
+<br/>
+<h2> IN PERSON HOLISTIC HEALING THERAPY/EXPERIENCES </h2>
+<br/>
+<br/>
+
+<form action="/search" method="POST">   
+    <div class="form-floating col-md-3">
+    <input type="text" name="enter_zip" class="form-control" placeholder="zipcode">
+    <label width="20%" for="floatingZip">Enter Zipcode</label>
+</div>
+
+<br/>
+
+<select name= "holistic">
+    <option value="sound_therapy">Sound Therapy</option>
+    <option value="acupuncture">Acupuncture</option>
+    <option value="plant_medicine">Plant Medicine</option>
+</select>
+
+<input class="waves-effect waves-dark bg-light btn" type= "submit" value= "Submit">
+
+</div>
+</div>
+</form>
+  
+</div>
+
+
+
+<!-- <div class="container">
+<br/>
+<br/>
+
+<h1> IN PERSON HOLISTIC HEALING THERAPY/EXPERIENCES </h1>
+
+</div> -->
+
+
+{% endblock %}
