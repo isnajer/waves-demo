@@ -201,10 +201,11 @@ def user_search():
 
     # Define the parameters:
     PARAMETERS = {'term': holistic,
-                  'limit': 10,
+                  'limit': 20,
                   'radius': 20000,
                   'offset': 0,
-                  'location': zipcode}
+                  'location': zipcode,
+                  'sort_by': "rating"}
 
     # Make a req. to the Yelp API:
     response = requests.get(url = ENDPOINT,
@@ -216,7 +217,11 @@ def user_search():
     
     search_result = []
     for business in business_data['businesses']:
-        Rslt = {'Name': business['name'], 'Location': business['location']['display_address']}
+        # Rslt = {'Name': business['name'], 'Location': business['location']}
+        Rslt = ['Name: {}'.format(business['name']),
+                'Location: {}'.format(business['location']['display_address']),
+                'Rating: {}'.format(business['rating']),
+                'Phone: {}'.format(business['phone'])] 
         search_result.append(Rslt)
     print(search_result)
     return jsonify(search_result)

@@ -39,8 +39,14 @@
 <input class="waves-effect waves-dark bg-light btn" type="submit" value= "Search" style="margin:10px;">
 
 
-<div id="user-search-results"></div>
+<div id="user-search-results" class=""form-floating>
+<li>
+  {{ business['name']}}
+</li>
+<br />
+{{ business['location']['display_address']}}
 
+</div>
 </div>
 </div>
 </form>
