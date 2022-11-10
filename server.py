@@ -197,14 +197,14 @@ HEADERS = {'Authorization': 'bearer %s' % API_KEY}
 def user_search():
 
     zipcode = request.args.get("zipcode")
-    holistic = request.args.get("holisitc")
+    holistic = request.args.get("holistic")
 
     # Define the parameters:
     PARAMETERS = {'term': holistic,
-                  'limit': 5,
-                  'radius': 7000,
+                  'limit': 10,
+                  'radius': 20000,
                   'offset': 0,
-                'location': zipcode}
+                  'location': zipcode}
 
     # Make a req. to the Yelp API:
     response = requests.get(url = ENDPOINT,
