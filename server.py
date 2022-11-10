@@ -195,7 +195,7 @@ HEADERS = {'Authorization': 'bearer %s' % API_KEY}
 
 @app.route('/user_search')
 def user_search():
-
+    
     zipcode = request.args.get("zipcode")
     holistic = request.args.get("holistic")
 
@@ -213,7 +213,7 @@ def user_search():
     
     # Convert the JSON string to a dictionary:
     business_data = response.json()
-
+    
     search_result = []
     for business in business_data['businesses']:
         Rslt = {'Name': business['name'], 'Location': business['location']['display_address']}
@@ -221,7 +221,6 @@ def user_search():
     print(search_result)
     return jsonify(search_result)
 
-# print(business_data.keys())
 
 # for biz in business_data['businesses']:
 #     print(biz['name']) # <-- or whatever attribute of the business you want...
@@ -234,33 +233,11 @@ def user_search():
 # f.write(json.dumps(business_data, indent = 3))
 # f.close()
 
-# Business Search - FULL LIST:
-# PARAMETERS = {'term': 'good food',
-#               'location': 'Los Angeles',
-#               'latitude': 32.715,
-#               'longitude': -117.161,
-#               'radius': 100000,
-#               'categories': 'bars,french',
-#               'locale': 'en_US',
-#               'limit': 50,
-#               'offset': 150,
-#               'sort_by': 'best_match',
-#               'price': '1',
-#               'open_now': True,
-#               'open_at': 1546215674,
-#               'attributes': 'hot_and_new'}
-
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
     """Yelp Search"""
 
-    # zipcode = request.form.get("zipcode")
-    # holistic = request.form.get("holisitc")
-    # offset = int(request.form.get("offset", 0))
-
-    # data = get_search_by_zip(zipcode, holistic)
-    # business = data['businesses']
     return render_template('search.html')
 
 

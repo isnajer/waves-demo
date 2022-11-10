@@ -9,24 +9,37 @@
 <br/>
 
 <form id="user-search" action="/user_search" method="GET">   
-    <div class="form-floating col-md-3">
-    <input type="text" id="enter_zip" class="form-control" placeholder="zipcode">
-    <label width="20%" for="floatingZip">Enter Zipcode</label>
+
+<div class="row g-2">
+    <div class="col-md">
+      <div class="form-floating">
+        <input type="text" class="form-control" id="enter_zip" placeholder="zipcode">
+        <label for="floatingInputGrid">Enter Zipcode</label>
+      </div>
     </div>
+    <div class="col-md">
+      <div class="form-floating">
+        <select class="form-select" id="holistic" aria-label="Floating label select example">
+          <option value="sound_therapy">Sound Therapy</option>
+          <option value="acupuncture">Acupuncture</option>
+          <option value="plant_medicine">Plant Medicine</option>
+        </select>
+        <label for="floatingSelectGrid">Select Holistic Therapy</label>
+      </div>
+    </div>
+  </div>
 
-<br/>
-
-<select id= "holistic">
+  <br/>
+<!-- <select id= "holistic">
     <option value="sound_therapy">Sound Therapy</option>
     <option value="acupuncture">Acupuncture</option>
     <option value="plant_medicine">Plant Medicine</option>
-</select>
+</select> -->
 
-<input class="waves-effect waves-dark bg-light btn" type= "submit" value= "Submit">
+<input class="waves-effect waves-dark bg-light btn" type="submit" value= "Search" style="margin:10px;">
 
-<div id="user-search-results">
 
-</div>
+<div id="user-search-results"></div>
 
 </div>
 </div>
