@@ -1,6 +1,6 @@
 fetch('/charts')
   .then((response) => response.json())
-  .then((brain_wave_count) => {
+  .then((brain_wave_count) => 
     new Chart(document.querySelector('#bar-chart'), {
       type: 'bar',
       data: {

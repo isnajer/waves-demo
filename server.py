@@ -1,7 +1,7 @@
 """Backend Server for Waves app."""
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect, url_for,)
+                   redirect, url_for, jsonify)
 from model import connect_to_db, db
 import crud
 from datetime import datetime, timedelta
@@ -193,25 +193,38 @@ API_KEY = 'fXyaeMmVOoXwDawXFDUqTlE9N8rzF4ocxWBqiQGeXKXyAj7-TIQaWbcu_-r1gfFC54Vg7
 ENDPOINT = 'https://api.yelp.com/v3/businesses/search'
 HEADERS = {'Authorization': 'bearer %s' % API_KEY}
 
-# Define the parameters:
-PARAMETERS = {'term': 'holistic',
-              'limit': 50,
-              'radius': 10000,
-              'offset': 50,
-              'location': 'Los Angeles'}
+@app.route('/user_search')
+def user_search():
 
-# Make a req. to the Yelp API:
-response = requests.get(url = ENDPOINT,
-                        params = PARAMETERS,
-                        headers = HEADERS)
- 
- # Convert the JSON string to a dictionary:
-business_data = response.json()
+    zipcode = request.args.get("zipcode")
+    holistic = request.args.get("holisitc")
+
+    # Define the parameters:
+    PARAMETERS = {'term': holistic,
+                  'limit': 5,
+                  'radius': 7000,
+                  'offset': 0,
+                'location': zipcode}
+
+    # Make a req. to the Yelp API:
+    response = requests.get(url = ENDPOINT,
+                            params = PARAMETERS,
+                            headers = HEADERS)
+    
+    # Convert the JSON string to a dictionary:
+    business_data = response.json()
+
+    search_result = []
+    for business in business_data['businesses']:
+        Rslt = {'Name': business['name'], 'Location': business['location']['display_address']}
+        search_result.append(Rslt)
+    print(search_result)
+    return jsonify(search_result)
 
 # print(business_data.keys())
 
-for biz in business_data['businesses']:
-    print(biz['name']) # <-- or whatever attribute of the business you want...
+# for biz in business_data['businesses']:
+#     print(biz['name']) # <-- or whatever attribute of the business you want...
 
 # Print the response:
 # print(json.dumps(business_data, indent = 3))
@@ -238,28 +251,17 @@ for biz in business_data['businesses']:
 #               'attributes': 'hot_and_new'}
 
 
-@app.route("/search", methods=["GET"])
+@app.route("/search", methods=["GET", "POST"])
 def search():
     """Yelp Search"""
 
-    zipcode = request.args.get("zipcode")
-    holistic = request.args.get("holisitc")
-    offset = int(request.args.get("offset", 0))
+    # zipcode = request.form.get("zipcode")
+    # holistic = request.form.get("holisitc")
+    # offset = int(request.form.get("offset", 0))
 
-    data = get_search_by_zip(zipcode, holistic, offset)
+    # data = get_search_by_zip(zipcode, holistic)
     # business = data['businesses']
-
-    return render_template('search.html', data=data, offset=offset,
-                            zipcode=zipcode, holistic=holistic)
-
-
-# Helper function that queries Yelp API:
-def get_search_by_zip(zipcode, holistic, offset=0):
-    HEADERS = {'Authorization': 'bearer %s' % API_KEY}
-    payload = {"location": str(zipcode), "term": str(holistic), "limit": int(10), "offset": offset}
-    response = requests.get(ENDPOINT+"/search", headers=HEADERS, params = payload)
-
-    return response.json()
+    return render_template('search.html')
 
 
 @app.route("/about")

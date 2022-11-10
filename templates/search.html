@@ -8,15 +8,15 @@
 <br/>
 <br/>
 
-<form action="/search" method="POST">   
+<form id="user-search" action="/user_search" method="GET">   
     <div class="form-floating col-md-3">
-    <input type="text" name="enter_zip" class="form-control" placeholder="zipcode">
+    <input type="text" id="enter_zip" class="form-control" placeholder="zipcode">
     <label width="20%" for="floatingZip">Enter Zipcode</label>
-</div>
+    </div>
 
 <br/>
 
-<select name= "holistic">
+<select id= "holistic">
     <option value="sound_therapy">Sound Therapy</option>
     <option value="acupuncture">Acupuncture</option>
     <option value="plant_medicine">Plant Medicine</option>
@@ -24,10 +24,15 @@
 
 <input class="waves-effect waves-dark bg-light btn" type= "submit" value= "Submit">
 
+<div id="user-search-results">
+
+</div>
+
 </div>
 </div>
 </form>
-  
+
+<script src="/static/js/user_search.js"></script>
 </div>
 
 
