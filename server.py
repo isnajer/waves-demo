@@ -12,7 +12,8 @@ import bcrypt
 import os
 import re
 import requests
-import json 
+import json
+import random
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -259,6 +260,15 @@ def logout():
     return redirect('/')
 
 
+#=============== EXERCISES, QUOTE GENERATOR ===============#
+@app.route("/exercises")
+def exercises():
+    """Exercises"""
+
+    return render_template('exercises.html')
+
+
+#=============== ADD USER RECORD ===============#
 def add_user_record(brain_wave_id):
     user_id = session.get("user_id")
     created_on = datetime.now()
@@ -269,6 +279,8 @@ def add_user_record(brain_wave_id):
         record = crud.create_user_record(user_id, created_on, brain_wave_id)
         db.session.add(record)
         db.session.commit()
+
+
 
 
 if __name__ == "__main__":

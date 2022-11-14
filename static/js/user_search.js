@@ -1,7 +1,3 @@
-function formatSearchResult(search_result) {
-    // template string or concatination...format data from dict.
-}
-
 
 
 document.querySelector('#user-search').addEventListener('submit', (evt) => {
@@ -24,7 +20,7 @@ fetch(`/user_search?${querystring}`)
 .then((search_results) => {
     for (const search_result of search_results){
         document.querySelector('#user-search-results').insertAdjacentHTML('beforeend', JSON.stringify(search_result))
-        // document.querySelector('#user-search-results').insertAdjacentHTML('beforeend', formatSearchResult(search_result))
+        // document.querySelector('#user-search-results').insertAdjacentHTML('beforeend', formatSearchResult(re))
         document.querySelector('#user-search-results').insertAdjacentHTML('beforeend', "<br><br>")
     }
 }
