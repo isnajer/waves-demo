@@ -2,8 +2,10 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
 
+
+
+db = SQLAlchemy()
 
 class User(db.Model):
     """Users."""
@@ -16,7 +18,7 @@ class User(db.Model):
     fname = db.Column(db.String(50))
     lname = db.Column(db.String(50))
     email = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
+    password = db.Column(db.String(128))
 
     records = db.relationship("User_Records", back_populates="user")
 

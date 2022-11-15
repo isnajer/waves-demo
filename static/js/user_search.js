@@ -1,10 +1,10 @@
 
 function formatSearchResult(search_result) {
-    return `${search_result['name']},
-            ${search_result['location']},
-            ${search_result['rating']},
-            ${search_result['phone']},
-            <img src="${search_result['image_url']}">`;
+    return `<img src="${search_result['image_url']}" width=20%><br>
+            ${search_result['name']}<br>
+            ${search_result['location']}<br>
+            ${search_result['rating']}<br>
+            ${search_result['phone']}<br>`;
 }
 
 

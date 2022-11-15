@@ -8,12 +8,13 @@ from datetime import datetime, timedelta
 from jinja2 import StrictUndefined
 from model import connect_to_db, db, User, User_Records
 from sqlalchemy.exc import IntegrityError
-import bcrypt
+from passlib.hash import argon2
 import os
 import re
 import requests
 import json
 import random
+
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -248,8 +249,6 @@ def about():
 
 @app.route("/logout")
 def logout():
-    # session['fname'] = None
-    # session['user_id'] = None
     session.clear()
     return redirect('/')
 
@@ -269,7 +268,7 @@ def add_user_record(brain_wave_id):
 
     # Is user logged in?
     if user_id:
-        user = User.query.get(user_id)
+
         record = crud.create_user_record(user_id, created_on, brain_wave_id)
         db.session.add(record)
         db.session.commit()
