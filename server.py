@@ -218,25 +218,19 @@ def user_search():
     
     search_result = []
     for business in business_data['businesses']:
-        Rslt = {'Name': business['name'], 
-                'Location': ", ".join(business['location']['display_address']), 
-                'Rating': business['rating'],
-                'Phone': business['phone']}
+        # search_result.append(business['name'])
+        # search_result.append(business['rating'])
+        # search_result.append(business['phone'])
+        # search_result.append(business['location']['display_address'])
+
+        Rslt = {'name': business['name'], 
+        'location': ", ".join(business['location']['display_address']), 
+        'rating': business['rating'],
+        'phone': business['phone'],
+        'image_url': business['image_url']}
         search_result.append(Rslt)
     print(search_result)
     return jsonify(search_result)
-
-
-# for biz in business_data['businesses']:
-#     print(biz['name']) # <-- or whatever attribute of the business you want...
-
-# Print the response:
-# print(json.dumps(business_data, indent = 3))
-# OR:
-# Write a response file:
-# f = open('.\\apis\\yelp_results.txt', 'w')
-# f.write(json.dumps(business_data, indent = 3))
-# f.close()
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -268,7 +262,7 @@ def exercises():
     return render_template('exercises.html')
 
 
-#=============== ADD USER RECORD ===============#
+#=============== ADD USER RECORD HELPER FUNCTION ===============#
 def add_user_record(brain_wave_id):
     user_id = session.get("user_id")
     created_on = datetime.now()

@@ -5,7 +5,7 @@ let output = document.getElementById('output');
 let quotes = 
     [' "If you want to find the secrets of the universe, think in terms of energy, frequency and vibration." - Nikola Tesla',
      ' "Sound is the Medicine of the future." - Edgar Cayce',
-     ' "If you do not make time for your wellness, you will be forced to make time for your illness." - N/A',
+     ' "If you don not make time for your wellness, you will be forced to make time for your illness." - N/A',
     ];
 
 
