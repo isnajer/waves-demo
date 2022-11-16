@@ -153,7 +153,6 @@ def show_chartjs():
         2) use  python librarry that creates show_charts based on pulled data from db
         3) save this image locally
         4) return the name of the image or image location
-
     chart = create_chart()
     return render_template('chartjs.html', chart)
     """

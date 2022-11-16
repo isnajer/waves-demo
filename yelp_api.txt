@@ -43,7 +43,7 @@ for event in event_data['events']:
 
 
 
-#=============== YELP BUSINESS API, ABOUT, LOGOUT ===============#
+#=============== YELP BUSINESS API ===============#
 # Define a business ID:
 business_id = ' '
 
