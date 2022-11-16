@@ -1,5 +1,6 @@
 """Backend Server for Waves app."""
 
+from __future__ import print_function
 from flask import (Flask, render_template, request, flash, session,
                    redirect, url_for, jsonify)
 from model import connect_to_db, db
@@ -15,6 +16,13 @@ import requests
 import json
 import random
 
+import os.path
+
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -273,6 +281,80 @@ def add_user_record(brain_wave_id):
         db.session.commit()
 
 
+#=============== SESSION INVITE STUFF ===============#
+SCOPES = ['https://www.googleapis.com/auth/calendar']
+
+@app.route("/schedule_session")
+def schedule_session():
+    """Exercises"""
+
+    return render_template('session_invite.html')
+
+@app.route("/session_invite", methods=["POST"])
+def session_invite():
+    
+    """Shows basic usage of the Google Calendar API.
+    Create event
+    """
+    creds = None
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+
+    try:
+        service = build('calendar', 'v3', credentials=creds)
+
+        # Create Calendar Event:
+        event = {
+        'summary': 'WAVES Session',
+        'location': 'http://localhost:5000/',
+        'description': "Your scheduled WAVES therapy session invite.",
+        'start': {
+            'dateTime': '2022-11-28T07:30:00-07:00',
+            'timeZone': 'America/Los_Angeles',
+        },
+        'end': {
+            'dateTime': '2022-11-28T08:00:00-07:00',
+            'timeZone': 'America/Los_Angeles',
+        },
+        'recurrence': [
+            'RRULE:FREQ=DAILY;COUNT=1'
+        ],
+        'attendees': [
+            {'email': 'isnajer@gmail.com'},
+        ],
+        'reminders': {
+            'useDefault': False,
+            'overrides': [
+            {'method': 'email', 'minutes': 24 * 60},
+            {'method': 'popup', 'minutes': 10},
+            ],
+        },
+        }
+
+        event = service.events().insert(calendarId='primary', body=event, sendUpdates="all").execute()
+        print('Event created: %s' % (event.get('htmlLink')))
+
+
+    except HttpError as error:
+        print('An error occurred: %s' % error)
+
+
+
+    return render_template('session_invite.html')
 
 
 if __name__ == "__main__":

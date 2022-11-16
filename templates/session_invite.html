@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% include 'nav.html' %}
+{% block content %}
+
+<form action="/session_invite" method="post">
+    <button name="forwardBtn" type="submit">Invite</button>
+</form>
+
+
+{% endblock %}
