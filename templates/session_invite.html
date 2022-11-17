@@ -2,16 +2,49 @@
 
 {% include 'nav.html' %}
 {% block content %}
-
-
-<!-- is it possible that the input being OUTSIDE of the form and its action/method are causing a disconnect between the input and the action? -->
+<div class="container">
 <br>
 <form action="/session_invite" method="post">
     <label for="session_datetime">Start:</label>
     <input type="datetime-local" id="start_session" name="start_session"><br><br>
     <label for="session_datetime">End:</label>
     <input type="datetime-local" id="end_session" name="end_session"><br><br>
-    <input type="submit" value="Book Session">
-</form>
 
+
+<!-- name tag must be the same for all -->
+<!-- TODO: link brain wave to each radio button, then add that as location in server function. -->
+
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+    <label class="form-check-label" for="flexRadioDefault1">
+      Delta Waves
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+    <label class="form-check-label" for="flexRadioDefault2">
+      Theta Waves
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+    <label class="form-check-label" for="flexRadioDefault3">
+      Alpha Waves
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+    <label class="form-check-label" for="flexRadioDefault4">
+      Beta Waves
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5">
+    <label class="form-check-label" for="flexRadioDefault5">
+      Gamma Waves
+    </label>
+  </div>
+  <br>
+  <input type="submit" value="Book Session">
+</form>
 {% endblock %}

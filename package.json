@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "chart.js": "^3.9.1",
-    "flatpickr": "^4.6.13"
+    "chart.js": "^3.9.1"
   }
 }
