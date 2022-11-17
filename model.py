@@ -68,7 +68,7 @@ class Brain_Wave(db.Model):
 
 
 # #####################################################################
-# # Helper functions;
+# # Helper functions:
 
 def connect_to_db(flask_app, db_uri="postgresql:///waves", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri

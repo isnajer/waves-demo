@@ -16,6 +16,8 @@ import requests
 import json
 import random
 
+
+import yelp_key 
 import os.path
 
 from google.auth.transport.requests import Request
@@ -95,6 +97,7 @@ def login_user():
     else:
         session['user_id'] = user.user_id
         session['fname'] = user.fname
+        session['email'] = user.email
         #getting email from object / but has same value as email line 48 (matching)
         # ^ dictionary of user_email: email (as value)
         return render_template("/dashboard.html")
@@ -158,7 +161,7 @@ def show_chartjs():
     """
     def create_chart():
         1) pull data from db for current user
-        2) use  python librarry that creates show_charts based on pulled data from db
+        2) use  python library that creates show_charts based on pulled data from db
         3) save this image locally
         4) return the name of the image or image location
     chart = create_chart()
@@ -198,7 +201,7 @@ def chart():
 business_id = ' '
 
 # Define the API key::
-API_KEY = 'fXyaeMmVOoXwDawXFDUqTlE9N8rzF4ocxWBqiQGeXKXyAj7-TIQaWbcu_-r1gfFC54Vg744qnh9xjU03lSrxzassUeIzG5fqRxYdGA7kK1cAqUlmg5qRx9UHC_9qY3Yx'
+API_KEY = yelp_key.API_KEY
 ENDPOINT = 'https://api.yelp.com/v3/businesses/search'
 HEADERS = {'Authorization': 'bearer %s' % API_KEY}
 
@@ -290,12 +293,24 @@ def schedule_session():
 
     return render_template('session_invite.html')
 
+
 @app.route("/session_invite", methods=["POST"])
 def session_invite():
     
-    """Shows basic usage of the Google Calendar API.
-    Create event
-    """
+    # TODO: Incorporate timezone into html.
+    
+    # get start&end times from html: 
+    start_date = request.form.get("start_session")
+    end_date = request.form.get("end_session")
+    
+    # converto to ISO format + TimeZone (for now):
+    start_date = start_date+":00-08:00"
+    end_date = end_date+":00-08:00"
+    print(start_date, end_date)
+
+
+
+    """Google Calendar API. Create event"""
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -321,20 +336,20 @@ def session_invite():
         event = {
         'summary': 'WAVES Session',
         'location': 'http://localhost:5000/',
-        'description': "Your scheduled WAVES therapy session invite.",
+        'description': "Your WAVES therapy session invite.",
         'start': {
-            'dateTime': '2022-11-28T07:30:00-07:00',
+            'dateTime': start_date,
             'timeZone': 'America/Los_Angeles',
         },
         'end': {
-            'dateTime': '2022-11-28T08:00:00-07:00',
+            'dateTime': end_date,
             'timeZone': 'America/Los_Angeles',
         },
         'recurrence': [
             'RRULE:FREQ=DAILY;COUNT=1'
         ],
         'attendees': [
-            {'email': 'isnajer@gmail.com'},
+            {'email': session['email']},
         ],
         'reminders': {
             'useDefault': False,
@@ -348,12 +363,10 @@ def session_invite():
         event = service.events().insert(calendarId='primary', body=event, sendUpdates="all").execute()
         print('Event created: %s' % (event.get('htmlLink')))
 
-
     except HttpError as error:
         print('An error occurred: %s' % error)
 
-
-
+    
     return render_template('session_invite.html')
 
 

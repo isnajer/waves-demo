@@ -7,9 +7,6 @@ function formatSearchResult(search_result) {
             ${search_result['phone']}<br>`;
 }
 
-
-
-
 document.querySelector('#user-search').addEventListener('submit', (evt) => {
 evt.preventDefault();
 

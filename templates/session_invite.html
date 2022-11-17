@@ -3,9 +3,15 @@
 {% include 'nav.html' %}
 {% block content %}
 
-<form action="/session_invite" method="post">
-    <button name="forwardBtn" type="submit">Invite</button>
-</form>
 
+<!-- is it possible that the input being OUTSIDE of the form and its action/method are causing a disconnect between the input and the action? -->
+<br>
+<form action="/session_invite" method="post">
+    <label for="session_datetime">Start:</label>
+    <input type="datetime-local" id="start_session" name="start_session"><br><br>
+    <label for="session_datetime">End:</label>
+    <input type="datetime-local" id="end_session" name="end_session"><br><br>
+    <input type="submit" value="Book Session">
+</form>
 
 {% endblock %}
