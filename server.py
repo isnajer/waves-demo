@@ -161,10 +161,29 @@ def hype_music():
 def add_user_record(brain_wave_id):
     user_id = session.get("user_id")
     created_on = datetime.now()
+    
 
     if user_id:
 
-        record = crud.create_user_record(user_id, created_on, brain_wave_id)
+        def get_ip():
+            response = requests.get('https://api64.ipify.org?format=json').json()
+            return response["ip"]
+
+        def get_location():
+            ip_address = get_ip()
+            response = requests.get(f'https://ipapi.co/{ip_address}/json/').json()
+            location_data = {
+                "ip": ip_address,
+                "city": response.get("city"),
+                "country": response.get("country_name")
+            }
+            return location_data
+        print(get_location())
+
+        user_city = get_location()
+        user_country = get_location()
+
+        record = crud.create_user_record(user_id, created_on, brain_wave_id, city=user_city["city"], country=user_country["country"])
         db.session.add(record)
         db.session.commit()
 

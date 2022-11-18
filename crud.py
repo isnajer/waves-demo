@@ -44,13 +44,15 @@ def get_user_by_email(email):
 
 
 # Functions for USER RECORDS class:
-def create_user_record(user_id, created_on, brain_wave_id):
+def create_user_record(user_id, created_on, brain_wave_id, city, country):
     """Create and return a new favorite"""
 
     record = User_Records(
         user_id=user_id,
         created_on=created_on,
-        brain_wave_id=brain_wave_id)
+        brain_wave_id=brain_wave_id,
+        city=city,
+        country=country)
 
     return record
 
@@ -65,6 +67,11 @@ def get_user_record_id(user_record_id):
     """Return all Brin Waves by id."""
 
     return User_Records.query.get(user_record_id)
+
+def get_user_record_location(city, country):
+    """Return all favorites."""
+
+    return User_Records.query.all(city, country)
 
 
 # Functions for BRAIN WAVE class:
