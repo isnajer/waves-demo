@@ -1,0 +1,12 @@
+THINGS NEEDED FOR SESSION SCHEDULING FEATURE:
+
+1) Where can I put this LONGGGG function?
+3) Get timezone...?
+8) User upcoming sessions in database model..
+
+
+QUESTIONS TO ASK:
+
+1) How can I pull up what brain_waves users has records of? 
+   Something like `Users.query.get(brain_wave_id)` ?
+

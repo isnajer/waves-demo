@@ -4,12 +4,13 @@ from __future__ import print_function
 from flask import (Flask, render_template, request, flash, session,
                    redirect, url_for, jsonify)
 from model import connect_to_db, db
-import crud
 from datetime import datetime, timedelta
 from jinja2 import StrictUndefined
 from model import connect_to_db, db, User, User_Records
 from sqlalchemy.exc import IntegrityError
 from passlib.hash import argon2
+from bs4 import BeautifulSoup
+import crud
 import os
 import re
 import requests
@@ -104,7 +105,7 @@ def login_user():
     #else user exists check if password is correct
 
 
-#=============== DASHBOARD, BWAVES, CHARTJS ===============#
+#=============== DASHBOARD ===============#
 @app.route("/dashboard")
 def user_dashboard():
     """User dashboard."""
@@ -124,8 +125,7 @@ def user_dashboard():
         return redirect('/login')
 
 
-# TO KEEP RECORD OF USER ACTIVITY:
-# before rendering template (while user logged in) save record w/ user_id and brainwave_id:
+#=============== BWAVES, USER RECORDS, CHARTJS ===============#
 @app.route("/delta_waves", methods=["GET"])
 def delta_waves():
     add_user_record(1)
@@ -150,7 +150,24 @@ def beta_waves():
 def gamma_waves():
     add_user_record(5)
     return render_template("gamma_waves.html")
-    
+
+@app.route("/hype_music")
+def hype_music():
+
+    return render_template("hype_music.html")
+
+
+# Add User Record helper function:
+def add_user_record(brain_wave_id):
+    user_id = session.get("user_id")
+    created_on = datetime.now()
+
+    if user_id:
+
+        record = crud.create_user_record(user_id, created_on, brain_wave_id)
+        db.session.add(record)
+        db.session.commit()
+
 
 @app.route("/charts")
 def show_chartjs():
@@ -262,7 +279,7 @@ def logout():
     return redirect('/')
 
 
-#=============== EXERCISES, QUOTE GENERATOR ===============#
+#=============== EXERCISES ===============#
 @app.route("/exercises")
 def exercises():
     """Exercises"""
@@ -270,20 +287,7 @@ def exercises():
     return render_template('exercises.html')
 
 
-#=============== ADD USER RECORD HELPER FUNCTION ===============#
-def add_user_record(brain_wave_id):
-    user_id = session.get("user_id")
-    created_on = datetime.now()
-
-    # Is user logged in?
-    if user_id:
-
-        record = crud.create_user_record(user_id, created_on, brain_wave_id)
-        db.session.add(record)
-        db.session.commit()
-
-
-#=============== SESSION INVITE STUFF ===============#
+#=============== SESSION BOOKING FUNCTION ===============#
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 @app.route("/schedule_session")
@@ -317,6 +321,7 @@ def session_invite():
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
+    ## if flow broken, delete token and re-attempt authorization
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
@@ -333,12 +338,32 @@ def session_invite():
 
     try:
         service = build('calendar', 'v3', credentials=creds)
+        
+        # Convert brain_wave_id to brain_wave_name + location to session_url (once deployed urls need to change!):
+        brain_wave_name = None
+        session_url = None
+        if brain_wave_id == "1":
+            brain_wave_name = "Delta"
+            session_url = "http://192.168.1.156:5000/delta_waves"
+        elif brain_wave_id == "2":
+            brain_wave_name = "Theta"
+            session_url = "http://192.168.1.156:5000/theta_waves"
+        elif brain_wave_id == "3":
+            brain_wave_name = "Alpha"
+            session_url = "http://192.168.1.156:5000/alpha_waves"
+        elif brain_wave_id == "4":
+            brain_wave_name = "Beta"
+            session_url = "http://192.168.1.156:5000/beta_waves"
+        elif brain_wave_id == "5":
+            brain_wave_name = "Gamma"
+            session_url = "http://192.168.1.156:5000/gamma_waves"
+        print(brain_wave_name)
 
-        # Create Calendar Event:
+        # Create Calendar Event (need to fetch user timeZone through IP address):
         event = {
-        'summary': 'WAVES Sound Therapy Session',
-        'location': 'http://localhost:5000/',
-        'description': "Your WAVES therapy session invite.",
+        'summary': brain_wave_name + " Waves Sound Therapy Session",
+        'location': session_url,
+        'description': "Your WAVES session invite.",
         'start': {
             'dateTime': start_session,
             'timeZone': 'America/Los_Angeles',
@@ -365,10 +390,12 @@ def session_invite():
         book_session = crud.create_booked_session(start_session=start_session, end_session=end_session, user_id=user_id, brain_wave_id=brain_wave_id)
         db.session.add(book_session)
         db.session.commit()
-        flash("Session Booked! Check Your Email/Calendar!")
+        flash(brain_wave_name + " Waves Session Booked! Check Your Email/Calendar!")
+
 
         event = service.events().insert(calendarId='primary', body=event, sendUpdates="all").execute()
-        print('Event created: %s' % (event.get('htmlLink')))
+        print(' Session Created: %s' % (event.get('htmlLink')))
+
 
         print(book_session)
 
