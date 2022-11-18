@@ -1,6 +1,6 @@
 """CRUD functions."""
 
-from model import db, User, User_Records, Brain_Wave, connect_to_db
+from model import db, User, User_Records, Brain_Wave, Booked_Session, connect_to_db
 
 
 # Functions for USER class:
@@ -101,6 +101,30 @@ def get_brain_wave_name(brain_wave_name):
     # ^ AttributeError: type object 'Brain_Wave' has no attribute 'name'
     # Should it be `return Brain_Wave.query.get(brain_wave_name)`
 
+
+# Functions for BOOKED SESSION class:
+def create_booked_session(user_id, brain_wave_id, start_session, end_session):
+    """Create and return a new favorite"""
+
+    session = Booked_Session(
+        user_id=user_id,
+        brain_wave_id=brain_wave_id,
+        start_session=start_session,
+        end_session=end_session,)
+
+    return session
+
+
+def get_booked_session():
+    """Return all favorites."""
+
+    return Booked_Session.query.all()
+
+
+def get_session_id(session_id):
+    """Return all Booked Sessions by id."""
+
+    return Booked_Session.query.get(session_id)
 
 
 

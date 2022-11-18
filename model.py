@@ -2,10 +2,8 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-
-
-
 db = SQLAlchemy()
+
 
 class User(db.Model):
     """Users."""
@@ -19,8 +17,10 @@ class User(db.Model):
     lname = db.Column(db.String(50))
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String(128))
+    session_id = db.Column(db.Integer, db.ForeignKey("sessions.session_id"))
 
     records = db.relationship("User_Records", back_populates="user")
+    # session = db.relationship("Booked_Session", back_populates="user")
 
     def __repr__(self):
         return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname} email={self.email}>'
@@ -58,14 +58,36 @@ class Brain_Wave(db.Model):
     playlist = db.Column(db.String)
     
     records = db.relationship("User_Records", back_populates="brain_wave")
+    #  Do I need this:
+    sessions = db.relationship("Booked_Session", back_populates="brain_wave")
 
     def __repr__(self):
-        return f'<Brain_Wave brain_wave_id={self.brain_wave_id} user_records_id={self.user_records_id}>' 
+        return f'<Brain_Wave brain_wave_id={self.brain_wave_id} user_records_id={self.user_records_id}>'
+
+
+class Booked_Session(db.Model):
+    """Booked Sessions."""
+
+    __tablename__ = 'sessions'
+
+    session_id = db.Column(db.Integer,
+                                autoincrement=True,
+                                primary_key=True)
+    start_session = db.Column(db.DateTime)
+    end_session = db.Column(db.DateTime)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    brain_wave_id = db.Column(db.Integer, db.ForeignKey("brain_waves.brain_wave_id"))
+    
+    # user = db.relationship("User", back_populates="session")
+    #  Do I need this:
+    brain_wave = db.relationship("Brain_Wave", back_populates="sessions")
+    
+
+    def __repr__(self):
+        return f'<Booked_Session session_id={self.session_id} start_session={self.start_session} end_session={self.end_session} user_id={self.user_id} brain_wave_id={self.brain_wave_id}>' 
 
 
    
-
-
 
 # #####################################################################
 # # Helper functions:

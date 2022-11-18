@@ -30,8 +30,7 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
-#API calls should be in this file through flask routes.
-
+# WRITE SOME TESTS FOR ROUTE CALLS....
 
 #=============== IDX, SIGN UP, LOGIN ===============#
 @app.route('/')
@@ -298,16 +297,19 @@ def schedule_session():
 def session_invite():
     
     # TODO: Incorporate timezone into html.
-    
+
+    #get session, user, and brain_wave IDs for db:
+    user_id = session.get("user_id")
+    brain_wave_id = request.form.get("brain_wave_id")
+
     # get start&end times from html: 
-    start_date = request.form.get("start_session")
-    end_date = request.form.get("end_session")
+    start_session = request.form.get("start_session")
+    end_session = request.form.get("end_session")
     
     # converto to ISO format + TimeZone (for now):
-    start_date = start_date+":00-08:00"
-    end_date = end_date+":00-08:00"
-    print(start_date, end_date)
-
+    start_session = start_session+":00-08:00"
+    end_session = end_session+":00-08:00"
+    print(start_session, end_session)
 
 
     """Google Calendar API. Create event"""
@@ -334,15 +336,15 @@ def session_invite():
 
         # Create Calendar Event:
         event = {
-        'summary': 'WAVES Session',
+        'summary': 'WAVES Sound Therapy Session',
         'location': 'http://localhost:5000/',
         'description': "Your WAVES therapy session invite.",
         'start': {
-            'dateTime': start_date,
+            'dateTime': start_session,
             'timeZone': 'America/Los_Angeles',
         },
         'end': {
-            'dateTime': end_date,
+            'dateTime': end_session,
             'timeZone': 'America/Los_Angeles',
         },
         'recurrence': [
@@ -360,8 +362,15 @@ def session_invite():
         },
         }
 
+        book_session = crud.create_booked_session(start_session=start_session, end_session=end_session, user_id=user_id, brain_wave_id=brain_wave_id)
+        db.session.add(book_session)
+        db.session.commit()
+        flash("Session Booked! Check Your Email/Calendar!")
+
         event = service.events().insert(calendarId='primary', body=event, sendUpdates="all").execute()
         print('Event created: %s' % (event.get('htmlLink')))
+
+        print(book_session)
 
     except HttpError as error:
         print('An error occurred: %s' % error)
