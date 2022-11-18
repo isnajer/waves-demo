@@ -302,6 +302,7 @@ def session_invite():
     
     # TODO: Incorporate timezone into html.
 
+
     #get session, user, and brain_wave IDs for db:
     user_id = session.get("user_id")
     brain_wave_id = request.form.get("brain_wave_id")
@@ -311,8 +312,8 @@ def session_invite():
     end_session = request.form.get("end_session")
     
     # converto to ISO format + TimeZone (for now):
-    start_session = start_session+":00-08:00"
-    end_session = end_session+":00-08:00"
+    start_session = start_session+":00"
+    end_session = end_session+":00"
     print(start_session, end_session)
 
 
@@ -339,6 +340,23 @@ def session_invite():
     try:
         service = build('calendar', 'v3', credentials=creds)
         
+        def get_ip():
+            response = requests.get('https://api64.ipify.org?format=json').json()
+            return response["ip"]
+
+
+        def get_location():
+            ip_address = get_ip()
+            response = requests.get(f'https://ipapi.co/{ip_address}/json/').json()
+            location_data = {
+                "ip": ip_address,
+                "city": response.get("city"),
+                "country": response.get("country_name"),
+                "timezone": response.get("timezone")
+            }
+            return location_data
+        print(get_location())
+
         # Convert brain_wave_id to brain_wave_name + location to session_url (once deployed urls need to change!):
         brain_wave_name = None
         session_url = None
@@ -359,6 +377,7 @@ def session_invite():
             session_url = "http://192.168.1.156:5000/gamma_waves"
         print(brain_wave_name)
 
+        user_timezone = get_location()
         # Create Calendar Event (need to fetch user timeZone through IP address):
         event = {
         'summary': brain_wave_name + " Waves Sound Therapy Session",
@@ -366,11 +385,11 @@ def session_invite():
         'description': "Your WAVES session invite.",
         'start': {
             'dateTime': start_session,
-            'timeZone': 'America/Los_Angeles',
+            'timeZone': user_timezone["timezone"],
         },
         'end': {
             'dateTime': end_session,
-            'timeZone': 'America/Los_Angeles',
+            'timeZone': user_timezone["timezone"],
         },
         'recurrence': [
             'RRULE:FREQ=DAILY;COUNT=1'
@@ -387,7 +406,7 @@ def session_invite():
         },
         }
 
-        book_session = crud.create_booked_session(start_session=start_session, end_session=end_session, user_id=user_id, brain_wave_id=brain_wave_id)
+        book_session = crud.create_booked_session(start_session=start_session, end_session=end_session, timezone=user_timezone["timezone"], user_id=user_id, brain_wave_id=brain_wave_id)
         db.session.add(book_session)
         db.session.commit()
         flash(brain_wave_name + " Waves Session Booked! Check Your Email/Calendar!")

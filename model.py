@@ -75,6 +75,7 @@ class Booked_Session(db.Model):
                                 primary_key=True)
     start_session = db.Column(db.DateTime)
     end_session = db.Column(db.DateTime)
+    timezone = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     brain_wave_id = db.Column(db.Integer, db.ForeignKey("brain_waves.brain_wave_id"))
     
@@ -84,7 +85,7 @@ class Booked_Session(db.Model):
     
 
     def __repr__(self):
-        return f'<Booked_Session session_id={self.session_id} start_session={self.start_session} end_session={self.end_session} user_id={self.user_id} brain_wave_id={self.brain_wave_id}>' 
+        return f'<Booked_Session session_id={self.session_id} start_session={self.start_session} end_session={self.end_session} timezone={self.timezone} user_id={self.user_id} brain_wave_id={self.brain_wave_id}>' 
 
 
    

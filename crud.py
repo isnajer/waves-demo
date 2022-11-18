@@ -103,14 +103,15 @@ def get_brain_wave_name(brain_wave_name):
 
 
 # Functions for BOOKED SESSION class:
-def create_booked_session(user_id, brain_wave_id, start_session, end_session):
+def create_booked_session(user_id, brain_wave_id, start_session, end_session, timezone):
     """Create and return a new favorite"""
 
     session = Booked_Session(
         user_id=user_id,
         brain_wave_id=brain_wave_id,
         start_session=start_session,
-        end_session=end_session,)
+        end_session=end_session,
+        timezone=timezone)
 
     return session
 
@@ -125,6 +126,11 @@ def get_session_id(session_id):
     """Return all Booked Sessions by id."""
 
     return Booked_Session.query.get(session_id)
+
+def get_session_timezone(timezone):
+    """Return all Booked Sessions by id."""
+
+    return Booked_Session.query.get(timezone)
 
 
 
