@@ -298,14 +298,6 @@ def logout():
     return redirect('/')
 
 
-#=============== EXERCISES ===============#
-@app.route("/exercises")
-def exercises():
-    """Exercises"""
-
-    return render_template('exercises.html')
-
-
 #=============== SESSION BOOKING FUNCTION ===============#
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 

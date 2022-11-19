@@ -16,11 +16,11 @@ import server
 model.connect_to_db(server.app)
 # model.db.create_all()
 
-# Load brain wave data from JSON file
+# Load brain wave data from JSON file:
 with open("data/brain_waves.json") as f:
     brain_wave_data = json.loads(f.read())
 
-# Create brain waves, store them in list so we can use them
+# Create brain waves, store them in list so we can use them:
 brain_wave_in_db = []
 for brain_wave in brain_wave_data:
     brain_wave_id, brain_wave_name, description, playlist = (
