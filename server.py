@@ -9,7 +9,6 @@ from jinja2 import StrictUndefined
 from model import connect_to_db, db, User, User_Records
 from sqlalchemy.exc import IntegrityError
 from passlib.hash import argon2
-from bs4 import BeautifulSoup
 import crud
 import os
 import re
@@ -30,6 +29,7 @@ from googleapiclient.errors import HttpError
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
+
 
 # WRITE SOME TESTS FOR ROUTE CALLS....
 
@@ -61,17 +61,16 @@ def register_user():
     if match_obj is None:
         flash("Invalid email address")
         return redirect('/signup')
-    elif user: #if user exists 
-        flash("User with this email already exists.")
+    elif user: #if user exists: 
+        flash("User with this email already exists. Please log in.")
         return redirect('/login')
     else:
         user = crud.create_user(fname, lname, email, password)
         db.session.add(user)
         db.session.commit()
         flash("Account created! Please log in.")
+        return render_template('login.html')
     
-    return redirect("/")
-
 
 @app.route("/login")
 def login():
@@ -101,8 +100,6 @@ def login_user():
         #getting email from object / but has same value as email line 48 (matching)
         # ^ dictionary of user_email: email (as value)
         return render_template("/dashboard.html")
-    #if user does not exist then flash message error
-    #else user exists check if password is correct
 
 
 #=============== DASHBOARD ===============#
@@ -128,27 +125,53 @@ def user_dashboard():
 #=============== BWAVES, USER RECORDS, CHARTJS ===============#
 @app.route("/delta_waves", methods=["GET"])
 def delta_waves():
-    add_user_record(1)
+    
+    user_id = session.get("user_id")
+    if user_id:
+        add_user_record(1)
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
     return render_template("delta_waves.html")
 
 @app.route("/theta_waves", methods=["GET"])
 def theta_waves():
-    add_user_record(2)
+    user_id = session.get("user_id")
+    if user_id:
+        add_user_record(2)
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
     return render_template("theta_waves.html")
 
 @app.route("/alpha_waves", methods=["GET"])
 def alpha_waves():
-    add_user_record(3)
+    user_id = session.get("user_id")
+    if user_id:
+        add_user_record(3)
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
     return render_template("alpha_waves.html")
 
 @app.route("/beta_waves", methods=["GET"])
 def beta_waves():
-    add_user_record(4)
+    user_id = session.get("user_id")
+    if user_id:
+        add_user_record(4)
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
     return render_template("beta_waves.html")
 
 @app.route("/gamma_waves", methods=["GET"])
 def gamma_waves():
-    add_user_record(5)
+    user_id = session.get("user_id")
+    if user_id:
+        add_user_record(5)
+    else:
+        flash("You are not logged in.")
+        return redirect('/login')
     return render_template("gamma_waves.html")
 
 @app.route("/hype_music")
@@ -175,24 +198,21 @@ def add_user_record(brain_wave_id):
             location_data = {
                 "ip": ip_address,
                 "city": response.get("city"),
-                "country": response.get("country_name")
+                "country_code": response.get("country_code")
             }
             return location_data
         print(get_location())
 
         user_city = get_location()
         user_country = get_location()
-
-        record = crud.create_user_record(user_id, created_on, brain_wave_id, city=user_city["city"], country=user_country["country"])
+        
+        record = crud.create_user_record(user_id, created_on, brain_wave_id, city=user_city["city"], country_code=user_country["country_code"])
         db.session.add(record)
         db.session.commit()
 
 
 @app.route("/charts")
 def show_chartjs():
-    
-    # TODO: create a function that will pull data from DB and create an images
-    # then use this image in your chartjs.html
     """
     def create_chart():
         1) pull data from db for current user
@@ -202,8 +222,6 @@ def show_chartjs():
     chart = create_chart()
     return render_template('chartjs.html', chart)
     """
-        
-    user_id = session.get("user_id")
 
     """
     SELECT brain_wave_id, COUNT(*) FROM records WHERE user_id=3 GROUP BY brain_wave_id;
@@ -221,7 +239,6 @@ def show_chartjs():
         records_count = User_Records.query.filter_by(brain_wave_id=brain_wave_id, user_id=user_id).count()
         brain_wave_count[brain_wave_id] = records_count
     print(f"=== {brain_wave_count}")
-    
     return brain_wave_count
 
 
@@ -230,6 +247,34 @@ def chart():
     
     return render_template('chartjs.html')
 
+
+#=============== MAP ===============#    
+@app.route("/map")
+def show_mapjs():
+    """
+    SELECT country, COUNT(*) FROM records GROUP BY country;
+       country | count
+---------------+-------
+             1 |     4
+             5 |     4
+    """
+    country_code = session.get("country_code")
+
+    country_count = {
+        "US": 0, "CA": 0,
+    }
+    for country_code, _ in country_count.items():
+        records_count = User_Records.query.filter_by(country_code=country_code).count()
+        country_count[country_code] = records_count
+    print(f"=== {country_count}")
+    return country_count
+    
+
+@app.route('/mapjs')
+def map():
+    """View map"""
+
+    return render_template('mapjs.html')
 
 #=============== YELP BUSINESS API, ABOUT, LOGOUT ===============#
 # Define a business ID:
@@ -264,17 +309,14 @@ def user_search():
     
     search_result = []
     for business in business_data['businesses']:
-        # search_result.append(business['name'])
-        # search_result.append(business['rating'])
-        # search_result.append(business['phone'])
-        # search_result.append(business['location']['display_address'])
-
+        
         Rslt = {'name': business['name'], 
         'location': ", ".join(business['location']['display_address']), 
         'rating': business['rating'],
         'phone': business['phone'],
         'image_url': business['image_url']}
         search_result.append(Rslt)
+    
     print(search_result)
     return jsonify(search_result)
 
@@ -311,9 +353,6 @@ def schedule_session():
 @app.route("/session_invite", methods=["POST"])
 def session_invite():
     
-    # TODO: Incorporate timezone into html.
-
-
     #get session, user, and brain_wave IDs for db:
     user_id = session.get("user_id")
     brain_wave_id = request.form.get("brain_wave_id")
@@ -326,7 +365,6 @@ def session_invite():
     start_session = start_session+":00"
     end_session = end_session+":00"
     print(start_session, end_session)
-
 
     """Google Calendar API. Create event"""
     creds = None
@@ -362,7 +400,7 @@ def session_invite():
             location_data = {
                 "ip": ip_address,
                 "city": response.get("city"),
-                "country": response.get("country_name"),
+                "countryCode": response.get("country_code"),
                 "timezone": response.get("timezone")
             }
             return location_data

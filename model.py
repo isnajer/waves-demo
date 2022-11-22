@@ -36,7 +36,7 @@ class User_Records(db.Model):
                         primary_key=True)
     created_on = db.Column(db.DateTime)
     city = db.Column(db.String(100))
-    country = db.Column(db.String(100))
+    country_code = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     brain_wave_id = db.Column(db.Integer, db.ForeignKey("brain_waves.brain_wave_id"))
 
@@ -44,7 +44,7 @@ class User_Records(db.Model):
     brain_wave = db.relationship("Brain_Wave", back_populates="records")
     
     def __repr__(self):
-        return f'<Record user_records_id={self.user_records_id} created_on={self.created_on} user_id={self.user_id} brain_wave_id={self.brain_wave_id} city={self.city} country={self.country}>'
+        return f'<Record user_records_id={self.user_records_id} created_on={self.created_on} user_id={self.user_id} brain_wave_id={self.brain_wave_id} city={self.city} country_code={self.country_code}>'
 
 
 class Brain_Wave(db.Model):

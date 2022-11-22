@@ -44,7 +44,7 @@ def get_user_by_email(email):
 
 
 # Functions for USER RECORDS class:
-def create_user_record(user_id, created_on, brain_wave_id, city, country):
+def create_user_record(user_id, created_on, brain_wave_id, city, country_code):
     """Create and return a new favorite"""
 
     record = User_Records(
@@ -52,7 +52,7 @@ def create_user_record(user_id, created_on, brain_wave_id, city, country):
         created_on=created_on,
         brain_wave_id=brain_wave_id,
         city=city,
-        country=country)
+        country_code=country_code)
 
     return record
 
