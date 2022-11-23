@@ -258,16 +258,26 @@ def show_mapjs():
              1 |     4
              5 |     4
     """
-    country_code = session.get("country_code")
+
 
     country_count = {
         "US": 0, "CA": 0,
     }
+
+    country_code = session.get("country_code")
     for country_code, _ in country_count.items():
         records_count = User_Records.query.filter_by(country_code=country_code).count()
         country_count[country_code] = records_count
-    print(f"=== {country_count}")
-    return country_count
+        print(f"=== {country_count}")
+    
+    country_list = []
+    for country, count in country_count.items():
+        country_list.append({"id": country, "value": count})
+    
+    #Serializing JSON:
+    json_object = json.dumps(country_list)
+    
+    return json_object
     
 
 @app.route('/mapjs')
@@ -275,6 +285,7 @@ def map():
     """View map"""
 
     return render_template('mapjs.html')
+
 
 #=============== YELP BUSINESS API, ABOUT, LOGOUT ===============#
 # Define a business ID:
