@@ -261,8 +261,20 @@ def show_mapjs():
 
 
     country_count = {
-        "US": 0, "CA": 0,
-    }
+        "US": 0, "CA": 0, "MX": 0, "AF": 0, "AX": 0, "AL": 0, "DZ": 0, "AS": 0, "AD": 0, "AO": 0, "AI": 0, "AI": 0, "AQ": 0,
+        "AG": 0, "AR": 0, "AM": 0, "AW": 0, "AU": 0, "AT": 0, "AZ": 0, "BS": 0, "BH": 0, "BD": 0, "BB": 0, "BY": 0, "BE": 0,
+        "BZ": 0, "BJ": 0, "BM": 0, "BT": 0, "BO": 0, "BA": 0, "BW": 0, "BV": 0, "VG":0, "IO": 0, "BN": 0, "BG": 0, "BF": 0, "BI": 0,
+        "KH": 0, "CM": 0, "CV": 0, "KY": 0, "CF": 0, "TD": 0, "CL": 0, "CN": 0, "HK": 0, "MO": 0, "CX": 0, "CC": 0, "CO": 0,
+        "KM": 0, "CG": 0, "CD": 0, "CD": 0, "CK": 0, "CR": 0, "CI": 0, "HR": 0, "CU": 0, "CY": 0, "CZ": 0, "DK": 0, "DJ": 0, "DM": 0,
+        "DO": 0, "EC": 0, "EG": 0, "SV": 0, "GQ": 0, 'ER': 0, "EE": 0, "ET": 0, "FK": 0, "FO": 0, "FJ": 0, "FI": 0, "FR": 0, "GF": 0,
+        "PF": 0, "TF": 0, "GA": 0, "GM": 0, "GE": 0, "DE": 0, "GH": 0, "GI": 0, "GR": 0, "GL": 0, "GD": 0, "GP": 0, "GU": 0, "GT": 0,
+        "GG": 0, "GN": 0, "GW": 0, "GY": 0, "HT": 0, "HM": 0, "VA": 0, "HN": 0, "HU": 0, "IS": 0, "IN": 0, "ID": 0, "IR": 0, "IQ": 0,
+        "IE": 0, "IM": 0, "IL": 0, "IT": 0, "JM": 0, "JP": 0, "JE": 0, "JO": 0, "KZ": 0, "KE": 0, "KI": 0, "KP": 0, "KR": 0, "KW": 0,
+        "KG": 0, "LA": 0, "LV": 0, "LB": 0, "LS": 0, "LR": 0, "LY": 0, "LI": 0, "LT": 0, "LU": 0, "MK": 0, "MG": 0, "MW": 0, "MY": 0,
+        "MV": 0, "ML": 0, "MT": 0, "MH": 0, "MQ": 0, "MR": 0, "MU": 0, "YT": 0, "MX": 0, "FM": 0, 
+
+
+        }
 
     country_code = session.get("country_code")
     for country_code, _ in country_count.items():
