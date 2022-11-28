@@ -120,6 +120,12 @@ def user_dashboard():
     else:
         flash("You are not logged in.")
         return redirect('/login')
+    
+
+@app.route("/sound_therapy")
+def sound_therapy():
+
+    return render_template('sound_therapy.html')
 
 
 #=============== BWAVES, USER RECORDS, CHARTJS ===============#
@@ -366,9 +372,9 @@ def logout():
 #=============== SESSION BOOKING FUNCTION ===============#
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
-@app.route("/schedule_session")
-def schedule_session():
-    """Exercises"""
+@app.route("/book_session")
+def book_session():
+    """Book Session"""
 
     return render_template('session_invite.html')
 
