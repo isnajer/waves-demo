@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% include 'nav.html' %}
+{% block content %}
+<div class="container-fluid">
+  <div class="wrapper">
+    <body>
+      <header>
+        <style>
+          h3 {text-align: center;}
+          p {text-decoration: font-weight-light;}
+        </style>
+      <br/>
+      <h3 class="hero-content">What can I help you with today, {{ session['fname'] }}?</h3>
+    </header>
+  </div>
+  </div>
+      
+<br/>
+
+<div class="flex-container">
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  <div class="card mb-0" style="max-width: 475px; margin-left: 16%; margin-right: 2%;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          src="https://mdbcdn.b-cdn.net/wp-content/uploads/2020/06/vertical.webp"
+          alt="Trendy Pants and Shoes"
+          class="img-fluid rounded-start"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><a class="text-decoration-none" href="/sound_therapy">Start Sound Therapy Session</a></h5>
+          <p class="card-text">
+            Choose the sound frequency range that best fits your needs. 
+            Sit back and enjoy the benefits of targetted sound frequency therapy.
+          </p>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-0" style="max-width: 475px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          src="https://mdbcdn.b-cdn.net/wp-content/uploads/2020/06/vertical.webp"
+          alt="Trendy Pants and Shoes"
+          class="img-fluid rounded-start"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><a class="text-decoration-none" href="/book_session">Book Session</a></h5>
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in to
+            additional content. This content is a little bit longer.
+          </p>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <blockquote class=".blockquote" style="margin-left: 25%;">
+    <div class=".mb-0">
+      <div class="card">
+      <div class="card-body">
+        <div class="main-content">
+        <div class="text-area" id="quote_gen">
+        <div onLoad="randomQuote" id="output" href="/static/js/generator.js"></div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <script src="/static/js/generator.js"></script>
+    </blockquote>
+
+  <div class="card mb-0" style="max-width: 475px; margin-left: 16%; margin-right: 2%;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          src="https://mdbcdn.b-cdn.net/wp-content/uploads/2020/06/vertical.webp"
+          alt="Trendy Pants and Shoes"
+          class="img-fluid rounded-start"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><a class="text-decoration-none" href="/search">In-Person Holistic Therapies</a></h5>
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in to
+            additional content. This content is a little bit longer.
+          </p>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-0" style="max-width: 475px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          src="https://mdbcdn.b-cdn.net/wp-content/uploads/2020/06/vertical.webp"
+          alt="Trendy Pants and Shoes"
+          class="img-fluid rounded-start"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><a class="text-decoration-none" href="/chartjs" >Track My Progress</a></h5>
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in to
+            additional content. This content is a little bit longer.
+          </p>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  </body>
+</div>
+</div>
+
+
+
+
+{% endblock %}

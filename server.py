@@ -59,16 +59,16 @@ def register_user():
     user = crud.get_user_by_email(email)
     match_obj = re.search(r"(\w+)\@(\w+\.com)", email)
     if match_obj is None:
-        flash("Invalid email address")
+        flash("Invalid email address!")
         return redirect('/signup')
     elif user: #if user exists: 
-        flash("User with this email already exists. Please log in.")
+        flash("User with this email already exists. Log in.")
         return redirect('/login')
     else:
         user = crud.create_user(fname, lname, email, password)
         db.session.add(user)
         db.session.commit()
-        flash("Account created! Please log in.")
+        flash("Account created! Log in!")
         return render_template('login.html')
     
 
@@ -87,7 +87,7 @@ def login_user():
 
     user = crud.get_user_by_email(email) #<- invoking function from crud.py
     if not user:
-        flash("User email does not exist.")
+        flash("User email does not exist!")
         return redirect("/login")
         # Add hyperlink to redirect to signup
     elif user.password != password:

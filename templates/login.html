@@ -1,32 +1,49 @@
 {% extends 'base.html' %}
-{% include 'nav_index.html' %}
 {% block content %}
-<div class="container">
-<br/>
-<br/>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">    
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+    body, div {font-family: "Raleway", sans-serif}
+    body, html {height: 100%}
+</style>
+<body>      
+<div class="w3-display-topleft w3-padding-large w3-xlarge"><a style="text-decoration: none; font-size:110%; color: black;" href="/">
+    WAVES
+    </a>
+</div>
+<br>
 
-
-
-<form action="/login" method="POST">
+<div class="w3-display-middle" style="width: 305px; height: 90px; border-width:1px; border-style: solid; border-color: #00000041;">
+<form action="/login" method="POST" style="width: 270px; height: 130px;" class="w3-display-middle">
     <!-- form action and method need to match in app.route in (server.py) -->
-    <div class="form-floating col-md-3">
+    <div class="form-floating col">
         <input type="text" name="email" class="form-control" placeholder="Email">
         <label for="floatingEmail">Email</label>
     </div>
     <br>
-    <div class="form-floating col-md-3">
+    <div class="form-floating col">
         <input type="password" name="password" class="form-control" placeholder="Password">
         <label for="floatingPassword">Password</label>
     </div>
     <br/>
-    <div class="homepage-background">
         <button
-            class="btn btn-primary btn-xl homepage-login-button"
-            data-toggle="modal"
+            class="btn btn-xl",
+            style="background-color: #00000041; border: none; padding: 2px 20px; margin-left: 32%; font-size:110%;",
+            data-toggle="modal",
             data-target="#login-modal">
             Log In
         </button>
-      </div>
     </form>
+    <!-- FLASH MESSAGES CODE: -->
+    <div class="floating-col">
+        {% for msg in get_flashed_messages() %}
+        <p class="flash-msg" style="font-size:110%; margin-top: -20%; margin-left: 18%; width: 305px; height: 90px;">
+            {{ msg }}
+        </p>
+        {% endfor %}
+    </div>
 </div>
+</body>
 {% endblock %}
