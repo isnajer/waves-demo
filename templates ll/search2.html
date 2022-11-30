@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% include 'nav.html' %}
+{% block content %}
+<div class="container-fluid" width="20%">
+<br/>
+<br/>
+<h2> FIND IN PERSON HOLISTIC HEALING THERAPY/EXPERIENCES </h2>
+<br/>
+<br/>
+
+<form id="user-search" action="/user_search" method="GET">   
+
+<div class="row g-2">
+    <div class="col-md">
+      <div class="form-floating">
+        <input type="text" class="form-control" id="enter_zip" placeholder="zipcode">
+        <label for="floatingInputGrid">Enter Zipcode</label>
+      </div>
+    </div>
+    <div class="col-md">
+      <div class="form-floating">
+        <select class="form-select" id="holistic" aria-label="Floating label select example">
+          <option value="sound_therapy">Sound Therapy</option>
+          <option value="acupuncture">Acupuncture</option>
+          <option value="plant_medicine">Plant Medicine</option>
+          <option value="Hypnotherapy">Hypnotherapy</option>
+          <option value="reiki">Reiki</option>
+        </select>
+        <label for="floatingSelectGrid">Select A Therapy</label>
+      </div>
+    </div>
+  </div>
+
+  <br/>
+<!-- <select id= "holistic">
+    <option value="sound_therapy">Sound Therapy</option>
+    <option value="acupuncture">Acupuncture</option>
+    <option value="plant_medicine">Plant Medicine</option>
+</select> -->
+
+<input class="waves-effect waves-dark bg-light btn" type="submit" value= "Search" style="margin:10px;">
+
+
+<div class="container-fluid" id="user-search-results">
+
+</div>
+  <br/>
+  <!-- <input type="text" id="user-search-results"> -->
+  <br/>
+</div>
+
+<br />
+<br />
+
+
+</div>
+</div>
+</div>
+</form>
+
+<script src="/static/js/user_search.js"></script>
+</div>
+
+
+
+<!-- <div class="container">
+<br/>
+<br/>
+
+<h1> IN PERSON HOLISTIC HEALING THERAPY/EXPERIENCES </h1>
+
+</div> -->
+
+
+{% endblock %}

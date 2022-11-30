@@ -343,7 +343,8 @@ def user_search():
         'location': ", ".join(business['location']['display_address']), 
         'rating': business['rating'],
         'phone': business['phone'],
-        'image_url': business['image_url']}
+        'image_url': business['image_url'],
+        'url': business['url']}
         search_result.append(Rslt)
     
     print(search_result)
