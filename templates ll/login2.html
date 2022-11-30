@@ -31,45 +31,4 @@
 </div>
 {% endblock %}
 
-<!-- V2: LOVE IT -->
 
-{% extends 'base.html' %}
-{% block content %}
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">    
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<style>
-    body,div {font-family: "Raleway", sans-serif}
-    body, html {height: 100%}
-</style>
-<body>      
-<div class="w3-display-topleft w3-padding-large w3-xlarge"><a style="text-decoration: none; font-size:110%; color: black;" href="/">
-    WAVES
-    </a>
-</div>
-<br>
-
-<div class="w3-display-middle">
-<form action="/login" method="POST" style="width: 270px; height: 130px;">
-    <!-- form action and method need to match in app.route in (server.py) -->
-    <div class="form-floating col">
-        <input type="text" name="email" class="form-control" placeholder="Email">
-        <label for="floatingEmail">Email</label>
-    </div>
-    <br>
-    <div class="form-floating col">
-        <input type="password" name="password" class="form-control" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-    </div>
-    <br/>
-        <button
-            class="btn btn-primary btn-xl homepage-login-button"
-            data-toggle="modal"
-            data-target="#login-modal">
-            Log In
-        </button>
-    </form>
-</div>
-</body>
-{% endblock %}
