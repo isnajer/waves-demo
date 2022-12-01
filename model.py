@@ -23,7 +23,7 @@ class User(db.Model):
     # session = db.relationship("Booked_Session", back_populates="user")
 
     def __repr__(self):
-        return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname} email={self.email}>'
+        return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname} email={self.email} session_id={self.session_id}>'
 
 
 class User_Records(db.Model):

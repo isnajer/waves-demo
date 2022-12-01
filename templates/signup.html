@@ -9,7 +9,8 @@
     body, html {height: 100%}
 </style>
 <body>      
-<div class="w3-display-topleft w3-padding-large w3-xlarge"><a style="text-decoration: none; font-size:110%;" href="/">
+<div class="w3-display-topleft w3-padding-large w3-xlarge">
+  <a style="text-decoration: none; font-size:110%;" href="/">
     WAVES
     </a>
 </div>
@@ -26,12 +27,7 @@
       <input type="text" name="lname" class="form-control" placeholder="Last Name">
       <label for="floatingLastName">Last Name</label>
     </div>
-    </form>
-</div>
-<br>
-<div class="w3-display-middle" style="margin-top: 6%; width: 305px; height: 90px; border-width:1px; border-style: solid; border-color: #00000041;">
-  <form action="/users" method="POST" style="width: 270px; height: 130px;" class="w3-display-middle">
-      <!-- form action and method need to match in app.route in (server.py) -->
+    <br>      <!-- form action and method need to match in app.route in (server.py) -->
       <div class="form-floating col">
         <input type="text" name="email" class="form-control" placeholder="Email">
         <label for="floatingEmail">Email</label>
@@ -42,14 +38,16 @@
         <label for="floatingPassword">Password</label>
       </div>
       <br>
-          <button
-            class="btn btn-xl",
-            style="background-color: #00000041; border: none; padding: 2px 20px; margin-left: 31%; font-size:110%;",
-            data-toggle="modal",
-            data-target="#signup-modal">
-            Sign Up
-          </button>
+        <button
+          class="btn btn-xl",
+          style="background-color: #00000041; border: none; padding: 2px 20px; margin-left: 31%; font-size:110%;",
+          data-toggle="modal",
+          data-target="#signup-modal">
+          Sign Up
+        </button>
       </form>
+</div>
+
   <!-- FLASH MESSAGES CODE: -->
   <div class="floating-col">
     {% for msg in get_flashed_messages() %}

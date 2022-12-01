@@ -45,8 +45,8 @@ anychart.onDocumentReady(function () {
       map
         .title()
         .enabled(true)
-        .fontSize(16)
-        .padding(0, 0, 30, 0)
+        .fontSize(20)
+        .padding(0, 0, 0, 0)
         .text('WAVES Around The World');
         
       // map

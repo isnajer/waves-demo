@@ -113,7 +113,6 @@ def user_dashboard():
 
     # Is user logged in:
     if user_id and fname:
-
         return render_template("dashboard.html")
 
     # If not logged in, redirect to homepage:
@@ -135,10 +134,11 @@ def delta_waves():
     user_id = session.get("user_id")
     if user_id:
         add_user_record(1)
+        return render_template("delta_waves.html")
     else:
         flash("You are not logged in.")
         return redirect('/login')
-    return render_template("delta_waves.html")
+    
 
 @app.route("/theta_waves", methods=["GET"])
 def theta_waves():
@@ -191,7 +191,6 @@ def add_user_record(brain_wave_id):
     user_id = session.get("user_id")
     created_on = datetime.now()
     
-
     if user_id:
 
         def get_ip():
@@ -347,7 +346,6 @@ def user_search():
         'url': business['url']}
         search_result.append(Rslt)
     
-    print(search_result)
     return jsonify(search_result)
 
 

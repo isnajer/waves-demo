@@ -6,7 +6,7 @@ fetch('/charts')
       data: {
         labels: ['Delta', 'Theta', 'Alpha', 'Beta', 'Gamma'],
         datasets: [{
-            label: 'Wave Focus',
+            label: 'Brain Wave Focus',
             data: [ 
               brain_wave_count[1], brain_wave_count[2], brain_wave_count[3], brain_wave_count[4], brain_wave_count[5]
             ],
@@ -36,6 +36,7 @@ fetch('/charts')
                 ticks: {
                   suggestedMin: 0,
                   suggestedMax: 40,
+                  fontSize: 20,
                 },
               },
             ],

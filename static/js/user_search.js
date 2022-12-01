@@ -3,9 +3,9 @@ function formatSearchResult(search_result) {
     return `<ul class="list-group" style="width: 20rem;">
                 <li class="list-group-item">
                     <img src="${search_result['image_url']}" width=40%><br>
-                    ${search_result['name']}<a style="text-decoration: none;" href="${search_result['url']};" target="_blank"><br>
+                    <a style="text-decoration: none;" href="${search_result['url']};" target="_blank">${search_result['name']}</a><br>
                     ${search_result['location']}<br>
-                    ${search_result['rating']}<br>
+                    <span>Rating: ${search_result['rating']} </span><br>
                     ${search_result['phone']}<br></li>`;
 }
 
