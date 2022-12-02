@@ -12,92 +12,110 @@
 <style>
   body,h1 {font-family: "Raleway", sans-serif}
   body, html {height: 100%}
+  .full-height {
+    height: 100%;
+  }
+  .img-fluid {
+    max-width: 100%;
+    height: 100%;
+  }
 </style>
 </head>
+<body>
 
-<div class="w3-display-topleft w3-padding-large w3-xlarge">
-  <a style="text-decoration: none; font-size:110%; color: black;" href="/dashboard">
-  WAVES
-  </a>
+<div class="full-height" >
+  <img 
+  src="/static/images/book_bg.png"
+  alt="sound_therapy_bg"
+  class="img-fluid"
+/>
+  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+    <a style="text-decoration: none; font-size:110%; color: black;" href="/dashboard">
+    WAVES
+    </a>
+  </div>
+  <div class="w3-display-topright w3-padding-large">
+    <a style="text-decoration: none; font-size:120%; color: black;" href="/dashboard">
+      Home
+    </a>
+    <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
+    <a style="text-decoration: none; font-size:120%; color: black;" href="/mapjs">
+      About
+    </a>
+    <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
+    <a style="text-decoration: none; font-size:120%; color: black;" href="/">
+      Log Out
+    </a>
+  </div>
+  <br>
+  <div class="w3-display-middle" style="margin-top: -2%; font-size:110%;">
+      <div class="card" style="margin: auto; width: 25rem; height: 25rem;">
+          <style>
+              h3 {text-align: center;}
+              p {text-decoration: font-weight-light;}
+          </style>
+          <h3 class="hero-content" style="font-size: 140%; font-family: raleway; margin-top: 3%;">Book A Session In Advance</h3>
+          <br>
+          <form action="/session_invite" method="post" style="margin: auto;">
+              <label for="session_datetime">Start:</label>
+              <input type="datetime-local" id="start_session" name="start_session"><br><br>
+              <label for="session_datetime">End:</label>
+              <input type="datetime-local" id="end_session" name="end_session"><br><br>
+          <!-- name tag must be the same for all -->
+          <!-- TODO: link brain wave to each radio button, then add that as location in server function. -->
+          <div class="form-check">
+              <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="1" value="1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Delta Waves
+                <span class="tooltiptext">Deep Sleep | Pain Relief | Anti-aging | Healing</span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check">
+              <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="2" value="2">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Theta Waves
+                <span class="tooltiptext">REM Sleep | Deep Relaxation | Meditation | Creativity</span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check">
+              <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="3" value="3">
+              <label class="form-check-label" for="flexRadioDefault3">
+                Alpha Waves
+                <span class="tooltiptext">Relaxed Focus | Stress Reduction | Positive Thinking | Fast Learning</span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check">
+              <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="4" value="4">
+              <label class="form-check-label" for="flexRadioDefault4">
+                Beta Waves
+                <span class="tooltiptext">Focused Attention | Cognitive Thinking | Problem Solving | Active</span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check">
+              <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="flexRadioDefault5" value="5">
+              <label class="form-check-label" for="flexRadioDefault5">
+                Gamma Waves
+                <span class="tooltiptext">High Level Cognition | Memory Recall | Peak Awareness</span>
+              </label>
+            </div>
+            <br>
+            <input type="submit" style="margin-left: 30%; margin-bottom: 10rem;" value="Book Session" name="session_id">
+          </form>
+              <!-- FLASH MESSAGES CODE: -->
+          <div class="floating-col">
+            {% for msg in get_flashed_messages() %}
+            <p class="flash-msg" style="font-size:95%; margin-top: -22%; margin-left: 20%;">
+                {{ msg }}
+            </p>
+            {% endfor %}
+          </div>
+      </div>
 </div>
-<div class="w3-display-topright w3-padding-large">
-  <a style="text-decoration: none; font-size:120%; color: black;" href="/dashboard">
-    Home
-  </a>
-  <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
-  <a style="text-decoration: none; font-size:120%; color: black;" href="/mapjs">
-    About
-  </a>
-  <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
-  <a style="text-decoration: none; font-size:120%; color: black;" href="/">
-    Log Out
-  </a>
 </div>
-<br>
-<div class="w3-display-middle" style="margin-top: -2%; font-size:110%;">
-    <div class="card" style="margin: auto; width: 35rem; height: 25rem;">
-        <style>
-            h3 {text-align: center;}
-            p {text-decoration: font-weight-light;}
-        </style>
-        <h3 class="hero-content" style="font-size: 140%; font-family: raleway; margin-top: 3%;">Book A Session In Advance</h3>
-        <br>
-        <form action="/session_invite" method="post" style="margin: auto;">
-            <label for="session_datetime">Start:</label>
-            <input type="datetime-local" id="start_session" name="start_session"><br><br>
-            <label for="session_datetime">End:</label>
-            <input type="datetime-local" id="end_session" name="end_session"><br><br>
-        <!-- name tag must be the same for all -->
-        <!-- TODO: link brain wave to each radio button, then add that as location in server function. -->
-        <div class="form-check">
-            <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="1" value="1">
-            <label class="form-check-label" for="flexRadioDefault1">
-              Delta Waves
-              <span class="tooltiptext">Deep Sleep | Pain Relief | Anti-aging | Healing</span>
-            </label>
-          </div>
-          <br>
-          <div class="form-check">
-            <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="2" value="2">
-            <label class="form-check-label" for="flexRadioDefault2">
-              Theta Waves
-              <span class="tooltiptext">REM Sleep | Deep Relaxation | Meditation | Creativity</span>
-            </label>
-          </div>
-          <br>
-          <div class="form-check">
-            <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="3" value="3">
-            <label class="form-check-label" for="flexRadioDefault3">
-              Alpha Waves
-              <span class="tooltiptext">Relaxed Focus | Stress Reduction | Positive Thinking | Fast Learning</span>
-            </label>
-          </div>
-          <br>
-          <div class="form-check">
-            <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="4" value="4">
-            <label class="form-check-label" for="flexRadioDefault4">
-              Beta Waves
-              <span class="tooltiptext">Focused Attention | Cognitive Thinking | Problem Solving | Active</span>
-            </label>
-          </div>
-          <br>
-          <div class="form-check">
-            <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="flexRadioDefault5" value="5">
-            <label class="form-check-label" for="flexRadioDefault5">
-              Gamma Waves
-              <span class="tooltiptext">High Level Cognition | Memory Recall | Peak Awareness</span>
-            </label>
-          </div>
-          <br>
-          <input type="submit" style="margin-left: 30%; margin-bottom: 10rem;" value="Book Session" name="session_id">
-        </form>
-            <!-- FLASH MESSAGES CODE: -->
-        <div class="floating-col">
-          {% for msg in get_flashed_messages() %}
-          <p class="flash-msg" style="font-size:95%; margin-top: -22%; margin-left: 20%;">
-              {{ msg }}
-          </p>
-          {% endfor %}
-        </div>
-    </div>
-</div>
+</body>
+</head>
+</html>

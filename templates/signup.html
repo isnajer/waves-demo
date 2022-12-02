@@ -1,21 +1,33 @@
-{% extends 'base.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">    
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
-    body,div {font-family: "Raleway", sans-serif}
-    body, html {height: 100%}
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+    background-image: url('/static/images/homepg_bg.png');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
 </style>
-<body>      
-<div class="w3-display-topleft w3-padding-large w3-xlarge">
-  <a style="text-decoration: none; font-size:110%; color: black;" href="/">
+</head>
+<body>
+
+<div class="bgimg w3-display-container">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge"><a style="text-decoration: none; font-size:115%; color: rgb(27, 27, 27);;" href="/">
     WAVES
-    </a>
-</div>
+  </a>
+  </div>
 <br>
-<div class="w3-display-middle" style="margin-top: -5%; width: 305px; height: 90px; border-width:1px; border-style: solid; border-color: #00000041;">
+<div class="w3-display-middle" style="margin-top: -5%;">
 <form action="/users" method="POST" style="width: 270px; height: 130px;" class="w3-display-middle">
     <!-- form action and method need to match in app.route in (server.py) -->
     <div class="form-floating col">
@@ -27,8 +39,9 @@
       <input type="text" name="lname" class="form-control" placeholder="Last Name">
       <label for="floatingLastName">Last Name</label>
     </div>
-    <br>      <!-- form action and method need to match in app.route in (server.py) -->
-      <div class="form-floating col">
+    <br>
+    <!-- form action and method need to match in app.route in (server.py) -->
+    <div class="form-floating col">
         <input type="text" name="email" class="form-control" placeholder="Email">
         <label for="floatingEmail">Email</label>
       </div>
@@ -40,7 +53,7 @@
       <br>
         <button
           class="btn btn-xl",
-          style="background-color: #00000041; border: none; padding: 2px 20px; margin-left: 31%; font-size:110%;",
+          style="color: rgb(237, 237, 237); background-color: #000000a7; border: none; padding: 2px 20px; margin-left: 31%; font-size:110%;",
           data-toggle="modal",
           data-target="#signup-modal">
           Sign Up
@@ -55,7 +68,8 @@
         {{ msg }}
     </p>
     {% endfor %}
-</div>
+  </div>
 </div>
 </body>
-{% endblock %}
+</div>
+</html>

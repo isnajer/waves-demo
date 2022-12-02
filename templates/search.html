@@ -11,68 +11,81 @@
 <style>
   body,h1 {font-family: "Raleway", sans-serif}
   body, html {height: 100%}
+  .full-height {
+    height: 100%;
+  }
+  .img-fluid {
+    max-width: 100%;
+    height: 100%;
+  }
 </style>
 </head>
 
-<div class="w3-display-topleft w3-padding-large w3-xlarge">
-  <a style="text-decoration: none; font-size:110%; color: black;" href="/dashboard">
-  WAVES
-  </a>
-</div>
-<div class="w3-display-topright w3-padding-large">
-  <a style="text-decoration: none; font-size:120%; color: black;" href="/dashboard">
-    Home
-  </a>
-  <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
-  <a style="text-decoration: none; font-size:120%; color: black;" href="/mapjs">
-    About
-  </a>
-  <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
-  <a style="text-decoration: none; font-size:120%; color: black;" href="/">
-    Log Out
-  </a>
-</div>
-<div class="w3-display-middle" style="margin-top: -11%; font-size:110%;">
-    <div class="card" style=" width: 45rem; height: 14rem;">
-        <style>
-            h3 {text-align: center;}
-            p  {text-decoration: font-weight-light;}
-        </style>
-        <h3 class="hero-content" style="font-size: 140%; margin-top: 3%;">Find In-Person Holistic Therapy/Experiences</h3>
-        <br>
-        <form id="user-search" action="/user_search" method="GET">   
-          <div class="row g-2">
-              <div class="col-md">
-                <div class="form-floating" style="margin-left: 2.5%; margin-right: 2%;">
-                  <input type="text" class="form-control" id="enter_zip" placeholder="zipcode">
-                  <label for="floatingInputGrid">Enter Zipcode</label>
+<div class="full-height">
+  <img 
+  src="/static/images/search_bg.png"
+  alt="sound_therapy_bg"
+  class="img-fluid"
+  />
+  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+    <a style="text-decoration: none; font-size:110%; color: black;" href="/dashboard">
+    WAVES
+    </a>
+  </div>
+  <div class="w3-display-topright w3-padding-large">
+    <a style="text-decoration: none; font-size:120%; color: black;" href="/dashboard">
+      Home
+    </a>
+    <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
+    <a style="text-decoration: none; font-size:120%; color: black;" href="/mapjs">
+      About
+    </a>
+    <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
+    <a style="text-decoration: none; font-size:120%; color: black;" href="/">
+      Log Out
+    </a>
+  </div>
+  <div class="w3-display-middle" style="margin-top: -10%; font-size:110%;">
+      <div class="card" style=" width: 45rem; height: 14rem;">
+          <style>
+              h3 {text-align: center;}
+              p  {text-decoration: font-weight-light;}
+          </style>
+          <h3 class="hero-content" style="font-size: 140%; margin-top: 3%;">Find In-Person Holistic Therapy/Experiences</h3>
+          <br>
+          <form id="user-search" action="/user_search" method="GET">   
+            <div class="row g-2">
+                <div class="col-md">
+                  <div class="form-floating" style="margin-left: 2.5%; margin-right: 2%;">
+                    <input type="text" class="form-control" id="enter_zip" placeholder="zipcode">
+                    <label for="floatingInputGrid">Enter Zipcode</label>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating" style="margin-right: 2.5%">
+                    <select class="form-select" id="holistic" aria-label="Floating label select example">
+                      <option value="sound_therapy">Sound Therapy</option>
+                      <option value="acupuncture">Acupuncture</option>
+                      <option value="plant_medicine">Plant Medicine</option>
+                      <option value="Hypnotherapy">Hypnotherapy</option>
+                      <option value="reiki">Reiki</option>
+                    </select>
+                    <label for="floatingSelectGrid">Select A Therapy</label>
+                  </div>
                 </div>
               </div>
-              <div class="col-md">
-                <div class="form-floating" style="margin-right: 2.5%">
-                  <select class="form-select" id="holistic" aria-label="Floating label select example">
-                    <option value="sound_therapy">Sound Therapy</option>
-                    <option value="acupuncture">Acupuncture</option>
-                    <option value="plant_medicine">Plant Medicine</option>
-                    <option value="Hypnotherapy">Hypnotherapy</option>
-                    <option value="reiki">Reiki</option>
-                  </select>
-                  <label for="floatingSelectGrid">Select A Therapy</label>
-                </div>
-              </div>
-            </div>
-            <br/>
-            <input type="submit" style="margin-left: 43%; margin-bottom: 10rem;" value="Search" name="session_id">
-            </form>         
-          
-              <div id="user-search-results" style=" font-family: sans-serif; color: black; width: 100%; display: flex; flex-direction: column; margin-left: 10rem; margin-top: -8rem;">
+              <br/>
+              <input type="submit" style="margin-left: 43%; margin-bottom: 10rem;" value="Search" name="session_id">
+              </form>         
+            
+              <div class="card-block" id="user-search-results" style=" font-family: sans-serif; color: black; width: 1000px; height: 1000px; display: flex; flex-direction: column; margin-left: -30; margin-top: -8rem;">
               </div>
               <script src="/static/js/user_search.js"></script>
           </div>
-      </div>
-    <br>
-    <br>
-</div>
+        </div>
+      <br>
+      <br>
+  </div>
 
 
 </head>
