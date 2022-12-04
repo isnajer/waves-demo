@@ -17,33 +17,93 @@
     max-width: 100%;
     height: 100%;
   }
+  .bgimg {
+    background-image: url('/static/images/dashboard_bg.png');
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: relative;
+    float: right;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.314);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 25px;
+  }
 
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-family: raleway;
+    font-size: 16px;
+    color: #080808;
+    display: block;
+    transition: 0.3s;
+  }
+  .sidenav a:hover {
+    color: #ffffff;
+  }
+  .sidenav .closebtn {
+    position: absolute;
+    margin-top: -40px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 70px;
+  }
+  #main {
+    transition: margin-right .5s;
+    padding: 16px;
+    text-decoration: solid;
+  }
+  span {
+    cursor: pointer;
+    font-size: 36px;
+    margin-top: -30%;
+  }
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 10px;}
+  }
 </style>
-</head>
-<body>
 
-<div class="full-height" >
-  <img 
-  src="/static/images/sound_bg.png"
-  alt="sound_therapy_bg"
-  class="img-fluid"
-/>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="/sound_therapy">Start Session</a>
+  <a href="/book_session">Book Session</a>
+  <a href="/search">In-Person Therapies</a>
+  <a href="/chartjs">Track Your Progress</a>
+  <a href="/mapjs">About</a>
+  <a href="/">Log Out</a>
+</div>
+
+<div id="main" style="position: fixed; font-family: raleway;" class="w3-display-topright w3-padding-large w3-xlarge">
+  <span onclick="openNav()" style="float: right;">&#9776;</span>
+</div>
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "200px";
+  document.getElementById("main").style.marginRight = "200px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginRight = "0";
+}
+</script>
+
+<div class="bgimg">
+
   <div class="w3-display-topleft w3-padding-large w3-xlarge">
-    <a style="text-decoration: none; font-size:110%; color: black;" href="/dashboard">
+    <a style="text-decoration: none; font-size:110%; color: black; position: fixed;" href="/dashboard">
     WAVES
-    </a>
-  </div>
-  <div class="w3-display-topright w3-padding-large">
-    <a style="text-decoration: none; font-size:120%; color: black;" href="/dashboard">
-      Home
-    </a>
-    <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
-    <a style="text-decoration: none; font-size:120%; color: black;" href="/mapjs">
-      About
-    </a>
-    <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
-    <a style="text-decoration: none; font-size:120%; color: black;" href="/">
-      Log Out
     </a>
   </div>
   <br>
@@ -53,36 +113,28 @@
       <li class="list-group-item"><a style="text-decoration: none; font-size:100%;" href="/delta_waves">(0.1-4hz) DELTA: Deep Sleep | Pain Relief | Anti-aging | Healing</a></li>
     </ul>
   </div>
-
+  <br>
   <div class="card" style="margin: auto; width: 45rem;">
     <ul class="list-group list-group-flush" style="margin: auto;">
       <li class="list-group-item"><a style="text-decoration: none; font-size:100%;" href="/theta_waves">(4-8hz) THETA: REM Sleep | Deep Relaxation | Meditation | Creativity</a></li>
     </ul>
   </div>
-
+  <br>
   <div class="card" style="margin: auto; width: 45rem;">
     <ul class="list-group list-group-flush" style="margin: auto;">
       <li class="list-group-item"><a style="text-decoration: none; font-size:100%;" href="/alpha_waves">(8-13hz) ALPHA: Relaxed Focus | Stress Reduction | Positive Thinking | Fast Learning</a></li>
     </ul>
   </div>
-
+  <br>
   <div class="card" style="margin: auto; width: 45rem;">
     <ul class="list-group list-group-flush" style="margin: auto;">
       <li class="list-group-item"><a style="text-decoration: none; font-size:100%;" href="/beta_waves">(13-30hz) BETA: Focused Attention | Cognitive Thinking | Problem Solving | Active</a></li>
     </ul>
   </div>
-
+  <br>
   <div class="card" style="margin: auto; width: 45rem;">
     <ul class="list-group list-group-flush" style="margin: auto;">
       <li class="list-group-item"><a style="text-decoration: none; font-size:100%;" href="/gamma_waves">(30-44hz) GAMMA: High Level Cognition | Memory Recall | Peak Awareness</a></li>
-    </ul>
-  </div>
-
-  <br>
-
-  <div class="card" style="margin: auto; width: 45rem;">
-    <ul class="list-group list-group-flush" style="margin: auto;">
-      <li class="list-group-item"><a style="text-decoration: none; font-size:100%;" href="/hype_music">Hype Music</a></li>
     </ul>
   </div>
   <br>

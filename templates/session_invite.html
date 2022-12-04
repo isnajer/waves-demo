@@ -19,32 +19,93 @@
     max-width: 100%;
     height: 100%;
   }
-</style>
-</head>
-<body>
+  .bgimg {
+    background-image: url('/static/images/dashboard_bg.png');
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  }
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: relative;
+    float: right;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.314);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 25px;
+  }
 
-<div class="full-height" >
-  <img 
-  src="/static/images/book_bg.png"
-  alt="sound_therapy_bg"
-  class="img-fluid"
-/>
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-family: raleway;
+    font-size: 16px;
+    color: #080808;
+    display: block;
+    transition: 0.3s;
+  }
+  .sidenav a:hover {
+    color: #ffffff;
+  }
+  .sidenav .closebtn {
+    position: absolute;
+    margin-top: -40px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 70px;
+  }
+  #main {
+    transition: margin-right .5s;
+    padding: 16px;
+    text-decoration: solid;
+  }
+  span {
+    cursor: pointer;
+    font-size: 36px;
+    margin-top: -30%;
+  }
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 10px;}
+  }
+</style>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="/sound_therapy">Start Session</a>
+  <a href="/book_session">Book Session</a>
+  <a href="/search">In-Person Therapies</a>
+  <a href="/chartjs">Track Your Progress</a>
+  <a href="/mapjs">About</a>
+  <a href="/">Log Out</a>
+</div>
+
+<div id="main" style="position: fixed; font-family: raleway;" class="w3-display-topright w3-padding-large w3-xlarge">
+  <span onclick="openNav()" style="float: right;">&#9776;</span>
+</div>
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "200px";
+  document.getElementById("main").style.marginRight = "200px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginRight = "0";
+}
+</script>
+
+<div class="bgimg">
+
   <div class="w3-display-topleft w3-padding-large w3-xlarge">
-    <a style="text-decoration: none; font-size:110%; color: black;" href="/dashboard">
+    <a style="text-decoration: none; font-size:110%; color: black; position: fixed;" href="/dashboard">
     WAVES
-    </a>
-  </div>
-  <div class="w3-display-topright w3-padding-large">
-    <a style="text-decoration: none; font-size:120%; color: black;" href="/dashboard">
-      Home
-    </a>
-    <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
-    <a style="text-decoration: none; font-size:120%; color: black;" href="/mapjs">
-      About
-    </a>
-    <a style="text-decoration: none; font-size:120%; color: black;"> | </a>
-    <a style="text-decoration: none; font-size:120%; color: black;" href="/">
-      Log Out
     </a>
   </div>
   <br>
@@ -67,7 +128,7 @@
               <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="1" value="1">
               <label class="form-check-label" for="flexRadioDefault1">
                 Delta Waves
-                <span class="tooltiptext">Deep Sleep | Pain Relief | Anti-aging | Healing</span>
+                <span class="tooltiptext" style="font-size: 17px;">Deep Sleep | Pain Relief | Anti-aging | Healing</span>
               </label>
             </div>
             <br>
@@ -75,7 +136,7 @@
               <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="2" value="2">
               <label class="form-check-label" for="flexRadioDefault2">
                 Theta Waves
-                <span class="tooltiptext">REM Sleep | Deep Relaxation | Meditation | Creativity</span>
+                <span class="tooltiptext" style="font-size: 17px; width: 430px;">REM Sleep | Deep Relaxation | Meditation | Creativity</span>
               </label>
             </div>
             <br>
@@ -83,7 +144,7 @@
               <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="3" value="3">
               <label class="form-check-label" for="flexRadioDefault3">
                 Alpha Waves
-                <span class="tooltiptext">Relaxed Focus | Stress Reduction | Positive Thinking | Fast Learning</span>
+                <span class="tooltiptext" style="font-size: 17px; width: 540px;">Relaxed Focus | Stress Reduction | Positive Thinking | Fast Learning</span>
               </label>
             </div>
             <br>
@@ -91,7 +152,7 @@
               <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="4" value="4">
               <label class="form-check-label" for="flexRadioDefault4">
                 Beta Waves
-                <span class="tooltiptext">Focused Attention | Cognitive Thinking | Problem Solving | Active</span>
+                <span class="tooltiptext" style="font-size: 17px; width: 525px;">Focused Attention | Cognitive Thinking | Problem Solving | Active</span>
               </label>
             </div>
             <br>
@@ -99,23 +160,24 @@
               <input class="form-check-input" style="margin: auto;" type="radio" name="brain_wave_id" id="flexRadioDefault5" value="5">
               <label class="form-check-label" for="flexRadioDefault5">
                 Gamma Waves
-                <span class="tooltiptext">High Level Cognition | Memory Recall | Peak Awareness</span>
+                <span class="tooltiptext" style="font-size: 17px; width: 450px;">High Level Cognition | Memory Recall | Peak Awareness</span>
               </label>
             </div>
             <br>
             <input type="submit" style="margin-left: 30%; margin-bottom: 10rem;" value="Book Session" name="session_id">
           </form>
-              <!-- FLASH MESSAGES CODE: -->
-          <div class="floating-col">
-            {% for msg in get_flashed_messages() %}
-            <p class="flash-msg" style="font-size:95%; margin-top: -22%; margin-left: 20%;">
-                {{ msg }}
-            </p>
-            {% endfor %}
-          </div>
-      </div>
+
+<!-- FLASH MESSAGES CODE: -->
+<div class="floating-col">
+  {% for msg in get_flashed_messages() %}
+  <p class="flash-msg" style="font-size: 105%; margin-top: -25%; margin-left: 2%;">
+      {{ msg }}
+  </p>
+  {% endfor %}
 </div>
-</div>
+
+    </div>
+  </div>
 </body>
 </head>
 </html>

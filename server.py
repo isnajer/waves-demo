@@ -344,7 +344,7 @@ def user_search():
 
     # Define the parameters:
     PARAMETERS = {'term': holistic,
-                  'limit': 5,
+                  'limit': 15,
                   'radius': 20000,
                   'offset': 0,
                   'location': zipcode,
@@ -368,6 +368,7 @@ def user_search():
         'image_url': business['image_url'],
         'url': business['url']}
         search_result.append(Rslt)
+
     
     return jsonify(search_result)
 
@@ -509,7 +510,8 @@ def session_invite():
         book_session = crud.create_booked_session(start_session=start_session, end_session=end_session, timezone=user_timezone["timezone"], user_id=user_id, brain_wave_id=brain_wave_id)
         db.session.add(book_session)
         db.session.commit()
-        flash(brain_wave_name + " Session Booked! Check Your Email/Calendar!")
+        flash(brain_wave_name + " session booked! Invite sent to your email.")
+        
 
 
         event = service.events().insert(calendarId='primary', body=event, sendUpdates="all").execute()
