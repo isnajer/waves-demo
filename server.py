@@ -308,7 +308,6 @@ def show_mapjs():
     for country_code, _ in country_count.items():
         records_count = User_Records.query.filter_by(country_code=country_code).count()
         country_count[country_code] = records_count
-        print(f"=== {country_count}")
     
     country_list = []
     for country, count in country_count.items():

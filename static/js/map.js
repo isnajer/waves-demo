@@ -47,8 +47,9 @@ anychart.onDocumentReady(function () {
         .enabled(true)
         .fontSize(20)
         .padding(0, 0, 0, 0)
-        .text('WAVES Around The World');
-        
+        .text('WAVES Sessions Around The World');
+
+      map.background("rgba(255, 0, 0, 0");       
       // map
       //   .tooltip()
       //   .useHtml(true)
