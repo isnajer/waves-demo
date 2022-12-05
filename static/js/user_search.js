@@ -1,13 +1,11 @@
 
-
-
 function formatSearchResult(search_result) {
     return `<ul class="list-group" style="width: 20rem; height: 20rem;">
                 <li class="list-group-item">
                     <img src="${search_result['image_url']}" width=40%><br>
                     <a style="text-decoration: none;" href="${search_result['url']};" target="_blank">${search_result['name']}</a><br>
                     ${search_result['location']}<br>
-                    <span style="font-size: 17px">Rating: ${search_result['rating']}/5</span><br>
+                    <span class="fa fa-star checked" style="font-size: 17px">Rating: ${search_result['rating']}/5</span><br>
                     ${search_result['phone']}<br></li>`;
 }
 

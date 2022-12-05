@@ -480,7 +480,7 @@ def session_invite():
         user_timezone = get_location()
         # Create Calendar Event (need to fetch user timeZone through IP address):
         event = {
-        'summary': brain_wave_name + " Waves Sound Therapy Session",
+        'summary': brain_wave_name + " Waves Therapy Session",
         'location': session_url,
         'description': "Your WAVES session invite.",
         'start': {
@@ -509,7 +509,7 @@ def session_invite():
         book_session = crud.create_booked_session(start_session=start_session, end_session=end_session, timezone=user_timezone["timezone"], user_id=user_id, brain_wave_id=brain_wave_id)
         db.session.add(book_session)
         db.session.commit()
-        flash(brain_wave_name + " session booked! Invite sent to your email.")
+        flash(brain_wave_name + " session booked! Check your email & calendar for details.")
         
 
 

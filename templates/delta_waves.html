@@ -13,13 +13,13 @@
   body, html {height: 100%}
   .bgimg {
     background-image: url('/static/images/book_bg.png');
-    height: 110%;
+    height: 118%;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
   }
   .sidenav {
-    height: 110%;
+    height: 118%;
     width: 0;
     position: relative;
     float: right;
@@ -47,9 +47,9 @@
   .sidenav .closebtn {
     position: absolute;
     margin-top: -40px;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 70px;
+    right: 0px;
+    font-size: 35px;
+    margin-left: 90px;
   }
   #main {
     transition: margin-right .5s;
@@ -69,12 +69,22 @@
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="/sound_therapy">Start Session</a>
-  <a href="/book_session">Book Session</a>
-  <a href="/search">In-Person Therapies</a>
-  <a href="/chartjs">Track Your Progress</a>
-  <a href="/mapjs">About</a>
-  <a href="/">Log Out</a>
+  <a href="/sound_therapy" style="position: fixed;">Start Session</a>
+  <br>
+  <br>
+  <a href="/book_session" style="position: fixed;">Book Session</a>
+  <br>
+  <br>
+  <a href="/search" style="position: fixed;">In-Person Therapies</a>
+  <br>
+  <br>
+  <a href="/chartjs" style="position: fixed;">Track Your Progress</a>
+  <br>
+  <br>
+  <a href="/mapjs" style="position: fixed;">About</a>
+  <br>
+  <br>
+  <a href="/" style="position: fixed;">Log Out</a>
 </div>
 
 <div id="main" style="position: fixed; font-family: raleway;" class="w3-display-topright w3-padding-large w3-xlarge">
@@ -102,7 +112,7 @@ function closeNav() {
   </div>
 <br>
 <br>
-<div class="w3-display-middle" style="margin-top: -13%; font-size:110%;">
+<div class="w3-display-middle" style="margin-top: -10%; font-size:110%;">
     <div class="card" style="margin: auto; width: 40rem;">
         <style>
             h3 {text-align: center;}
@@ -118,9 +128,11 @@ function closeNav() {
           <div class="card" style="margin: auto; width: 40rem; color: clear;">
   
       <div class="w3-display-middle" style="margin-top: 39%;">
-        <div class="card" style="margin: auto; width: 40rem;">
-        <h3 class="hero-content" style="font-size: 112%; font-family: raleway; margin-top: -2%; margin-bottom: -2%;"><br>Delta brainwaves are the slowest of all brainwaves and are strongest when we are enjoying restorative sleep in a dreamless state. 
-            This is also the state where healing and rejuvenation are stimulated, and indicate synchronization of cells of the cerebral cortex. Which is why it’s so crucial to get enough sleep each night. Delta waves are present in the frontal cortex.
+        <div class="card" style="margin: auto; width: 40rem; height: 28rem;">
+        <h3 class="hero-content" style="font-size: 112%; font-family: raleway; margin-top: 2%; margin-bottom: -2%;">
+          Delta brainwaves are the slowest of all brainwaves and are strongest when we are enjoying restorative sleep 
+          in a dreamless state. This is also the state where healing and rejuvenation are stimulated, and indicate 
+          synchronization of cells of the cerebral cortex. This is why it is crucial to get enough sleep each night.
           <img src="/static/images/frontal_lobe.png" style="margin-left: 165px; margin-top: 1%; margin-bottom: 5%; width:350px; display:block" />
         </h3>
       </div>

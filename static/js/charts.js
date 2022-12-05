@@ -15,7 +15,7 @@ fetch('/charts')
       options: {
           datasets: {
             bar: {
-              barThickness: 50,
+              barThickness: 60,
               // We use a function to automatically set the background color of
               // each bar in the bar chart.
               //

@@ -45,9 +45,9 @@ anychart.onDocumentReady(function () {
       map
         .title()
         .enabled(true)
-        .fontSize(20)
-        .padding(0, 0, 0, 0)
-        .text('WAVES Sessions Around The World');
+        .fontSize(18)
+        .padding(25, 25, 25, 25)
+        .text('Sessions Around The World');
 
       map.background("rgba(255, 0, 0, 0");       
       // map
