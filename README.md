@@ -1,5 +1,7 @@
 # WAVES - Sound Therapy On-Demand
 
+WAVES is a web application for on-demand holistic health practices. 
+
 For many, wellness services are unaffordable, inaccessible, and require advanced planning.
 WAVES’s mission is to expand access to free holistic wellness services and connect people directly to at-home and in-person wellness practices.
 WAVES is designed to embed wellbeing into your daily routine, customized to your goals.
