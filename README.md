@@ -69,4 +69,4 @@ Run WAVES:<br />
 Open 'localhost:5000/' to access the WAVES web application
 
 ## About Me
-Hi, I'm Isis. WAVES is my first full-stack web application. It took me 5 weeks to complete as part of a 17-week software engineering program with Hackbright Academy in San Francisco, CA.
+Hi, I'm Isis. WAVES is my first full-stack web application. It took me 5 weeks to complete as part of a 17-week software engineering program with Hackbright Academy in San Francisco, California.
