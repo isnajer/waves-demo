@@ -18,8 +18,6 @@ personalized charts to track their progress over time.
 
 
 ## Login/Sign Up
-- Users can Login or Sign Up
-- Passwords are secured
 <img width="723" alt="Screen Shot 2022-12-05 at 7 42 34 PM" src="https://user-images.githubusercontent.com/99369436/205812569-75dcd2c5-6481-4ddb-b7fd-9d79ee2f9859.png">
 
 
