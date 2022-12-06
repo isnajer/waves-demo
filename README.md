@@ -41,20 +41,20 @@ personalized charts to track their progress over time.
 <img width="723" alt="Screen Shot 2022-12-05 at 8 38 29 PM" src="https://user-images.githubusercontent.com/99369436/205816789-79dd15e9-5ed7-44cf-bf12-5a95bd6cf873.png">
 
 ## Set Up
-Clone of fork this repo:
+Clone of fork this repo:<br />
 `https://github.com/isnajer/waves-demo.git`
 
-Create/Activate a vritual environment inside project directory:
+Create/Activate a vritual environment inside project directory:<br />
 `virtualenv env
 source env/bin/activate`
 
-Install project dependencies:
+Install project dependencies:<br />
 `pip install -r requirements.txt`
 
-Set up database:
+Set up database:<br />
 `python3 seed_database.py`
 
-Run WAVES:
+Run WAVES:<br />
 `make run` or `python3 server.py`
 
 Open 'localhost:5000/' to access the web WAVES
