@@ -41,10 +41,10 @@ personalized charts to track their progress over time.
 <img width="723" alt="Screen Shot 2022-12-05 at 8 38 29 PM" src="https://user-images.githubusercontent.com/99369436/205816789-79dd15e9-5ed7-44cf-bf12-5a95bd6cf873.png">
 
 ## Set Up
-Clone of fork this repo:<br />
+Clone or fork repo:<br />
 `https://github.com/isnajer/waves-demo.git`
 
-Create/Activate a vritual environment inside project directory:<br />
+Create and activate a vritual environment inside project directory:<br />
 `virtualenv env
 source env/bin/activate`
 
