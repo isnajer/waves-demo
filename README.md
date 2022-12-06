@@ -3,8 +3,9 @@
 For many, wellness services are unaffordable, inaccessible, and require advanced planning.
 WAVES’s mission is to expand access to free holistic wellness services and connect people directly to at-home and in-person wellness practices.
 WAVES is designed to embed wellbeing into your daily routine, customized to your goals.
-Users have on-demand access to a variety of brainwave targetted sound freuencies, the ability to book sound therapy sessions in advance, and 
+Users have on-demand access to a variety of brainwave targeted sound frequencies, the ability to book sound therapy sessions in advance, and 
 personalized charts to track their progress over time. 
+
 
 # Table of Contents
 
