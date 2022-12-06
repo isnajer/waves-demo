@@ -57,7 +57,7 @@ Set up database:<br />
 Run WAVES:<br />
 `make run` or `python3 server.py`
 
-Open 'localhost:5000/' to access the web WAVES
+Open 'localhost:5000/' to access the WAVES web application
 
 ## About Me
 Hi, I'm Isis. WAVES is my first full-stack web application. It took me 5 weeks to complete as part of a 12-week software engineering program with Hackbright Academy.
